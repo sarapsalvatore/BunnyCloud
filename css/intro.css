@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff9fd, #f2f6ff);
+}
+
+/* 1. SPLASH SCREEN (Uvítacia obrazovka) */
+.splash-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease; /* Plynulejšie zmiznutie */
+}
+
+.splash-logo-wrapper {
+  text-align: center;
+  animation: zoomAndFadeIn 1.5s ease-in-out forwards;
+}
+
+/* Tvoje zväčšené logo na úvodnej obrazovke */
+.bunny-logo-img {
+  width: 320px; /* Tu sme ho zväčšili z 180px na 320px */
+  height: auto;
+  border-radius: 35px;
+  margin-bottom: 25px;
+  box-shadow: 0 20px 50px rgba(142, 121, 255, 0.12);
+}
+
+.splash-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #8e79ff;
+  letter-spacing: -1px;
+}
+
+/* 2. INTRO (Hlavná obrazovka po načítaní) */
+.intro {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: opacity 0.8s ease;
+}
+
+/* Rozmazané pastelové kruhy na pozadí */
+.intro::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  background: #d9c8ff;
+  border-radius: 50%;
+  filter: blur(120px);
+  top: -120px;
+  left: -120px;
+  animation: float1 12s ease-in-out infinite;
+}
+
+.intro::after {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: #cde9ff;
+  border-radius: 50%;
+  filter: blur(120px);
+  bottom: -80px;
+  right: -80px;
+  animation: float2 10s ease-in-out infinite;
+}
+
+/* Biela karta v strede */
+.intro-content {
+  position: relative;
+  z-index: 2;
+  width: 470px;
+  padding: 45px;
+  border-radius: 35px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  animation: fadeUp 1.1s ease;
+}
+
+/* Tvoje logo na bielej karte - tiež zväčšené */
+.intro-logo-img {
+  width: 140px; /* Tu sme ho zväčšili z 90px na 140px */
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 25px rgba(142, 121, 255, 0.1);
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: 700;
+  color: #8e79ff;
+  letter-spacing: -2px;
+}
+
+.subtitle {
+  margin-top: 10px;
+  color: #555;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+#startButton {
+  margin-top: 35px;
+  width: 100%;
+  height: 58px;
+  border: none;
+  border-radius: 18px;
+  background: #8e79ff;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.35s;
+}
+
+#startButton:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(142, 121, 255, 0.35);
+}
+
+/* Pomocné triedy pre JavaScript prechody */
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ANIMÁCIE */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomAndFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes float1 {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(40px, 30px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes float2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-35px, -25px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}

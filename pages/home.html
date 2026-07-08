@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bunnycloud - Home</title>
+    <link rel="stylesheet" href="../css/home.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo-svg">
+            <svg viewBox="0 0 100 100" width="30" height="30">
+              <path
+                d="M30,50 C20,50 15,30 25,15 C35,0 45,20 45,40 C45,20 55,0 65,15 C75,30 70,50 60,50 C75,50 85,65 80,80 C75,95 25,95 20,80 C15,65 25,50 30,50 Z"
+                fill="#b9a6ff"
+              />
+            </svg>
+          </div>
+          <h2>Bunnycloud</h2>
+        </div>
+        <div class="sidebar-bunny-card">
+          <img
+            src="../images/bunny-base.jpg"
+            alt="Bunny Profile"
+            id="sidebarBunny"
+          />
+        </div>
+        <nav class="nav-menu">
+          <button class="nav-btn active">Home</button
+          ><button class="nav-btn">Search</button
+          ><button class="nav-btn">Library</button
+          ><button class="nav-btn">Favorites</button
+          ><button class="nav-btn">Playlists</button
+          ><button class="nav-btn">Bunny Moods</button
+          ><button class="nav-btn">Bunny Studio</button
+          ><button class="nav-btn">Downloads</button
+          ><button class="nav-btn">Settings</button>
+        </nav>
+        <div class="sidebar-user-profile">
+          <div class="user-avatar"></div>
+          <div class="user-info">
+            <span class="username" id="userProfileName">Sarka</span
+            ><span class="user-status">Bunny Lover</span>
+            <div class="xp-container">
+              <div class="xp-bar" style="width: 72%"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <main class="main-content">
+        <div class="search-bar-container">
+          <input
+            type="text"
+            placeholder="Search for songs, albums, artists..."
+          />
+        </div>
+        <section class="hero-banner" id="mainHero">
+          <div class="hero-text">
+            <p>Good evening,</p>
+            <h1 id="heroGreetingName">Sarka</h1>
+            <p class="subtext">Ready to discover something beautiful today?</p>
+            <button class="continue-btn">Continue Listening</button>
+          </div>
+          <div class="hero-img-box">
+            <img
+              src="../images/bunny-base.jpg"
+              alt="Hero Bunny"
+              id="heroBunny"
+            />
+          </div>
+        </section>
+        <section class="moods-section">
+          <h3>How are you feeling?</h3>
+          <div class="moods-list">
+            <button class="mood-card active" onclick="changeMood('study')">
+              <div class="mood-icon study"></div>
+              <p>Study</p></button
+            ><button class="mood-card" onclick="changeMood('happy')">
+              <div class="mood-icon happy"></div>
+              <p>Happy</p></button
+            ><button class="mood-card" onclick="changeMood('calm')">
+              <div class="mood-icon calm"></div>
+              <p>Calm</p></button
+            ><button class="mood-card" onclick="changeMood('dreamy')">
+              <div class="mood-icon dreamy"></div>
+              <p>Dreamy</p></button
+            ><button class="mood-card" onclick="changeMood('rain')">
+              <div class="mood-icon rain"></div>
+              <p>Rain</p></button
+            ><button class="mood-card" onclick="changeMood('gaming')">
+              <div class="mood-icon gaming"></div>
+              <p>Gaming</p></button
+            ><button class="mood-card" onclick="changeMood('love')">
+              <div class="mood-icon love"></div>
+              <p>Love</p></button
+            ><button class="mood-card" onclick="changeMood('sleep')">
+              <div class="mood-icon sleep"></div>
+              <p>Sleep</p>
+            </button>
+          </div>
+        </section>
+        <div class="music-sections-grid">
+          <div class="grid-column">
+            <div class="column-header">
+              <h3>Made for your mood</h3>
+              <span>See all</span>
+            </div>
+            <div class="song-cards-container" id="suggestedSongs"></div>
+          </div>
+          <div class="grid-column">
+            <div class="column-header">
+              <h3>Recently Played</h3>
+              <span>See all</span>
+            </div>
+            <div class="recent-list">
+              <div class="recent-row">
+                <div class="recent-cover p1"></div>
+                <div>
+                  <h4>Cloudy Days</h4>
+                  <p>Lo-fi Bunny</p>
+                </div>
+              </div>
+              <div class="recent-row">
+                <div class="recent-cover p2"></div>
+                <div>
+                  <h4>Pastel Dreams</h4>
+                  <p>Lo-fi Bunny</p>
+                </div>
+              </div>
+              <div class="recent-row">
+                <div class="recent-cover p3"></div>
+                <div>
+                  <h4>Moonlight</h4>
+                  <p>Chillhop</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <aside class="right-panel">
+        <h3>Bunny Room</h3>
+        <div class="bunny-room-box">
+          <img src="../images/bunny-base.jpg" alt="Bunny Room" id="roomBunny" />
+        </div>
+        <div class="quote-box">
+          <p id="moodQuote">"Take a break and enjoy your favorite song."</p>
+        </div>
+        <div class="library-header">
+          <h3>Your Library</h3>
+          <span>+ New</span>
+        </div>
+        <div class="library-list">
+          <div class="lib-row">
+            <div class="lib-icon l1"></div>
+            <div>
+              <h4>Liked Songs</h4>
+              <p>128 songs</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-icon l2"></div>
+            <div>
+              <h4>My Songs</h4>
+              <p>64 songs</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-icon l3"></div>
+            <div>
+              <h4>Chill Playlist</h4>
+              <p>32 songs</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <footer class="bottom-player">
+        <div class="player-left">
+          <div class="current-cover"></div>
+          <div>
+            <h4 id="currentTrackTitle">Rainy Window</h4>
+            <p id="currentTrackArtist">Lo-fi Bunny</p>
+          </div>
+        </div>
+        <div class="player-center">
+          <div class="player-buttons">
+            <button class="p-btn">⏮</button
+            ><button class="play-circle" id="mainPlayBtn">▶</button
+            ><button class="p-btn">⏭</button>
+          </div>
+          <div class="timeline-box">
+            <span class="time-text" id="currentTime">1:24</span>
+            <div class="progress-bar-bg">
+              <div
+                class="progress-bar-fill"
+                id="playerProgress"
+                style="width: 38%"
+              ></div>
+            </div>
+            <span class="time-text">3:45</span>
+          </div>
+        </div>
+        <div class="player-right">
+          <button class="lyrics-btn">Lyrics</button
+          ><button class="queue-btn">Queue</button>
+          <div class="volume-box">
+            <span>Vol</span
+            ><input
+              type="range"
+              class="vol-slider"
+              min="0"
+              max="100"
+              value="80"
+            />
+          </div>
+          <div class="mini-bunny-avatar">
+            <img src="../images/bunny-base.jpg" alt="Mini Bunny" />
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="../js/home.js"></script>
+  </body>
+</html>

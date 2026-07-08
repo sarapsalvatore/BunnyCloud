@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bunnycloud - Customize Your Bunny</title>
+    <link rel="stylesheet" href="../css/intro.css" />
+    <link rel="stylesheet" href="../css/bunny-creator.css" />
+  </head>
+  <body>
+    <div class="intro">
+      <div class="intro-content creator-card">
+        <h2 class="creator-title">Style Your Bunny</h2>
+        <p class="creator-subtitle">Choose clothes and accessories</p>
+
+        <div class="bunny-preview-container" id="bunnyPreview">
+          <img
+            src="../images/bunny-base.jpg"
+            alt="Base Bunny"
+            class="layer base-bunny"
+          />
+
+          <img
+            src=""
+            alt="Jacket"
+            id="layerJacket"
+            class="layer clothing-layer"
+            style="display: none"
+          />
+          <img
+            src=""
+            alt="Glasses"
+            id="layerGlasses"
+            class="layer clothing-layer"
+            style="display: none"
+          />
+        </div>
+
+        <div class="creator-tabs">
+          <div class="custom-section">
+            <h3>Clothes</h3>
+            <div class="options-grid">
+              <button
+                class="style-option"
+                data-type="jacket"
+                data-src="../images/jacket1.png"
+              >
+                Pink Jacket
+              </button>
+              <button
+                class="style-option"
+                data-type="jacket"
+                data-src="../images/jacket2.png"
+              >
+                Blue Jacket
+              </button>
+              <button class="style-option" data-type="jacket" data-src="">
+                None
+              </button>
+            </div>
+          </div>
+
+          <div class="custom-section">
+            <h3>Accessories</h3>
+            <div class="options-grid">
+              <button
+                class="style-option"
+                data-type="glasses"
+                data-src="../images/glasses1.png"
+              >
+                Cool Glasses
+              </button>
+              <button class="style-option" data-type="glasses" data-src="">
+                None
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button id="finishButton">Save and Finish</button>
+      </div>
+    </div>
+
+    <script src="../js/bunny-creator.js"></script>
+  </body>
+</html>

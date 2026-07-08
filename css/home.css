@@ -1,0 +1,617 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f1ebff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: background 0.8s ease;
+}
+
+/* Hlavný kontajner aplikácie - presný Glassmorphic nákres */
+.app-container {
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  grid-template-rows: 1fr 85px;
+  width: 98vw;
+  height: 96vh;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(151, 131, 235, 0.1);
+  overflow: hidden;
+}
+
+/* SIDEBAR (Ľavý panel) */
+.sidebar {
+  background: rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #8d78ff;
+  padding-left: 8px;
+}
+
+.brand h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sidebar-bunny-card {
+  width: 100%;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.sidebar-bunny-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #726b90;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn.active,
+.nav-btn:hover {
+  background: linear-gradient(135deg, #e3daff, #f3e6ff);
+  color: #8d78ff;
+  font-weight: 600;
+}
+
+/* Užívateľ na spodu sidebaru */
+.sidebar-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffc2e3;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.user-info .username {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+.user-info .user-status {
+  font-size: 9px;
+  color: #888;
+}
+.xp-container {
+  width: 100%;
+  height: 4px;
+  background: #e0d9f5;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.xp-bar {
+  height: 100%;
+  background: #b9a6ff;
+  border-radius: 2px;
+}
+
+/* MAIN CONTENT (Stredný panel) */
+.main-content {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-bar-container input {
+  width: 100%;
+  max-width: 300px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 8px 16px;
+  border-radius: 14px;
+  outline: none;
+  font-size: 12px;
+}
+
+/* HERO BANNER */
+.hero-banner {
+  background: linear-gradient(135deg, #d3c4ff 0%, #f7d6ff 100%);
+  border-radius: 20px;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #433975;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(211, 196, 255, 0.3);
+}
+
+.hero-text p {
+  font-size: 12px;
+  font-weight: 500;
+}
+.hero-text h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 2px 0;
+}
+.hero-text .subtext {
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+.continue-btn {
+  background: #8d78ff;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(141, 120, 255, 0.3);
+}
+
+.hero-img-box {
+  width: 110px;
+  height: 110px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.hero-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* MOOD CAPSULES */
+.moods-section h3 {
+  font-size: 14px;
+  color: #433975;
+  margin-bottom: 10px;
+}
+.moods-list {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.mood-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  width: 68px;
+  height: 75px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mood-card p {
+  font-size: 11px;
+  font-weight: 500;
+  color: #555;
+}
+.mood-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+/* Farby ikoniek podľa nákresu */
+.mood-icon.study {
+  background: #cbdcff;
+}
+.mood-icon.happy {
+  background: #ffe9b5;
+}
+.mood-icon.calm {
+  background: #c6f3db;
+}
+.mood-icon.dreamy {
+  background: #ebd5ff;
+}
+.mood-icon.rain {
+  background: #bfeaff;
+}
+.mood-icon.gaming {
+  background: #e0bfff;
+}
+.mood-icon.love {
+  background: #ffc9e3;
+}
+.mood-icon.sleep {
+  background: #353866;
+}
+
+.mood-card.active {
+  border: 2px solid #8d78ff;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* SEKCIE GRID (Made for mood + Recently) */
+.music-sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.column-header h3 {
+  font-size: 14px;
+  color: #433975;
+}
+.column-header span {
+  font-size: 11px;
+  color: #8d78ff;
+  cursor: pointer;
+}
+
+/* Kontajner pre 4 karty vedľa seba s flexwrapom alebo mini gridom */
+.song-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.s-card {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+.s-cover {
+  height: 85px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+.s-card h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+.s-card p {
+  font-size: 10px;
+  color: #777;
+}
+
+/* Farebné podmazy na covery */
+.c1 {
+  background: linear-gradient(to bottom, #4f4c8b, #2b2952);
+}
+.c2 {
+  background: linear-gradient(to bottom, #ff9ebb, #ff6b95);
+}
+.c3 {
+  background: linear-gradient(to bottom, #6b86ff, #4459c7);
+}
+.c4 {
+  background: linear-gradient(to bottom, #9be8ff, #4cc3e6);
+}
+
+/* RECENT LIST (Pravá strana gridu) */
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.recent-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 8px;
+  border-radius: 12px;
+}
+.recent-cover {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+}
+.recent-cover.p1 {
+  background: #b0c9ff;
+}
+.recent-cover.p2 {
+  background: #ffbfe1;
+}
+.recent-cover.p3 {
+  background: #cbd4ff;
+}
+.recent-row h4 {
+  font-size: 12px;
+  font-weight: 600;
+}
+.recent-row p {
+  font-size: 10px;
+  color: #777;
+}
+
+/* PRAVÝ PANEL (Bunny room & Knižnica) */
+.right-panel {
+  background: rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.right-panel h3 {
+  font-size: 14px;
+  color: #433975;
+}
+
+.bunny-room-box {
+  width: 100%;
+  height: 130px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+.bunny-room-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quote-box {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 14px;
+  border-radius: 14px;
+  border-left: 3px solid #b9a6ff;
+}
+.quote-box p {
+  font-size: 11px;
+  font-style: italic;
+  color: #5a5285;
+}
+
+.library-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.library-header span {
+  font-size: 11px;
+  color: #8d78ff;
+  cursor: pointer;
+}
+
+.library-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lib-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 8px;
+  border-radius: 12px;
+}
+.lib-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+.lib-icon.l1 {
+  background: linear-gradient(135deg, #cebeff, #f3e6ff);
+}
+.lib-icon.l2 {
+  background: linear-gradient(135deg, #ffbfe1, #ffe3f0);
+}
+.lib-icon.l3 {
+  background: linear-gradient(135deg, #bfeaff, #dff5ff);
+}
+.lib-row h4 {
+  font-size: 11px;
+  font-weight: 600;
+}
+.lib-row p {
+  font-size: 9px;
+  color: #777;
+}
+
+/* SPODNÝ PREHRÁVAČ */
+.bottom-player {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 220px;
+}
+.current-cover {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffd1eb, #d0bfff);
+}
+.player-left h4 {
+  font-size: 12px;
+  font-weight: 600;
+}
+.player-left p {
+  font-size: 10px;
+  color: #777;
+}
+
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-grow: 1;
+  max-width: 440px;
+}
+.player-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.p-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+}
+.play-circle {
+  background: #8d78ff;
+  color: white;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.time-text {
+  font-size: 10px;
+  color: #777;
+  width: 30px;
+}
+.progress-bar-bg {
+  flex-grow: 1;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: #8d78ff;
+  border-radius: 2px;
+}
+
+.player-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 240px;
+  justify-content: flex-end;
+}
+.lyrics-btn,
+.queue-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.volume-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #555;
+}
+.vol-slider {
+  -webkit-appearance: none;
+  width: 60px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+  outline: none;
+}
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #8d78ff;
+  cursor: pointer;
+}
+
+.mini-bunny-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #ddd;
+}
+.mini-bunny-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

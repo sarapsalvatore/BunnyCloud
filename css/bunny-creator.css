@@ -1,0 +1,101 @@
+.creator-card {
+  width: 520px !important;
+  padding: 35px !important;
+}
+
+.creator-title {
+  font-size: 28px;
+  color: #8e79ff;
+  font-weight: 700;
+}
+
+.creator-subtitle {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Kontajner, v ktorom sa ukladajú vrstvy na seba */
+.bunny-preview-container {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 25px;
+  background: #e8e2ff; /* Základná fialkastá farba */
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 4px solid white;
+  box-shadow: 0 15px 35px rgba(142, 121, 255, 0.15);
+}
+
+/* Všetky vrstvy sú na sebe */
+.layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: auto;
+  transition: all 0.3s ease;
+}
+
+.base-bunny {
+  z-index: 1;
+}
+
+.clothing-layer {
+  z-index: 2; /* Oblečenie ide pred zajačika */
+}
+
+.creator-tabs {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.custom-section h3 {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.options-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.style-option {
+  background: white;
+  border: 2px solid rgba(142, 121, 255, 0.2);
+  padding: 10px 15px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #555;
+  transition: 0.2s;
+}
+
+.style-option:hover {
+  border-color: #8e79ff;
+  color: #8e79ff;
+}
+
+.style-option.active {
+  background: #8e79ff;
+  border-color: #8e79ff;
+  color: white;
+}
+
+#finishButton {
+  width: 100%;
+  height: 55px;
+  border: none;
+  border-radius: 18px;
+  background: #8e79ff;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
