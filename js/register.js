@@ -14,8 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Zobrazenie error správy
-  function showError(message) {
-    errorMessage.textContent = message;
+  function showError(message, allowHtml = false) {
+    if (allowHtml) {
+      errorMessage.innerHTML = message;
+    } else {
+      errorMessage.textContent = message;
+    }
     errorMessage.classList.add("show");
     setTimeout(() => {
       errorMessage.classList.remove("show");
@@ -65,7 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Kontrola či účet už existuje
     const existingUsers = JSON.parse(localStorage.getItem("bunnycloud_users") || "[]");
     if (existingUsers.some((u) => u.email === email)) {
-      showError("❌ Tento email je už registrovaný!");
+      showError(
+        '❌ Tento email je už registrovaný! <a href="login.html">Prihlás sa sem</a>.',
+        true,
+      );
       return;
     }
 
@@ -82,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("bunnycloud_users", JSON.stringify(existingUsers));
     localStorage.setItem("bunnycloud_currentUser", JSON.stringify(newUser));
     localStorage.setItem("bunnycloud_username", username);
+    localStorage.setItem("bunnycloud_loggedIn", "true");
 
     // Animácia a presmerovanie
     submitButton.style.transform = "scale(0.96)";
@@ -95,8 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Login link handler
   window.goToLogin = function () {
-    // TODO: Vytvoriť login stránku
-    showError("❌ Login stránka bude čoskoro!");
+    window.location.href = "login.html";
   };
 });
 

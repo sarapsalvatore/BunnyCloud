@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bunnycloud - Register</title>
+    <title>Bunnycloud - Prihlásenie</title>
     <link rel="stylesheet" href="../css/intro.css" />
     <link rel="stylesheet" href="../css/register.css" />
     <link
@@ -22,28 +22,18 @@
           />
         </div>
 
-        <h2 class="register-title">Create Account</h2>
+        <h2 class="register-title">Prihlásenie</h2>
         <p class="register-subtitle">
-          Join Bunnycloud & find your perfect mood 🐰
+          Vstúp späť do Bunnycloud a pokračuj tam, kde si prestal.
         </p>
 
         <div id="errorMessage" class="error-message"></div>
 
-        <form class="register-form" id="registerForm">
-          <div class="input-field">
-            <input
-              type="text"
-              id="username"
-              placeholder="Username"
-              required
-              minlength="3"
-            />
-          </div>
-
+        <form class="register-form" id="loginForm">
           <div class="input-field">
             <input
               type="email"
-              id="email"
+              id="loginEmail"
               placeholder="Email"
               required
             />
@@ -52,35 +42,25 @@
           <div class="input-field">
             <input
               type="password"
-              id="password"
-              placeholder="Password"
+              id="loginPassword"
+              placeholder="Heslo"
               required
               minlength="6"
             />
           </div>
 
-          <div class="input-field">
-            <input
-              type="password"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              required
-              minlength="6"
-            />
-          </div>
-
-          <button type="submit" class="register-btn" id="submitButton">
-            Continue to Bunny Creator
+          <button type="submit" class="register-btn" id="loginButton">
+            Prihlásiť sa
           </button>
         </form>
 
         <div class="login-link">
-          Už máš účet?
-          <a href="login.html">Prihlás sa</a>
+          Nemáš účet?
+          <a href="register.html">Vytvor si ho</a>
         </div>
       </div>
     </div>
 
-    <script src="../js/register.js"></script>
+    <script src="../js/login.js"></script>
   </body>
 </html>

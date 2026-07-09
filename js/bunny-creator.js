@@ -74,36 +74,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Initialize color buttons
 function initializeColorButtons() {
-  const colorGrid = document.querySelector(".options-grid");
-  
-  colorOptions.forEach((color, index) => {
-    const button = document.createElement("button");
-    button.className = "color-option";
-    button.style.backgroundColor = color.hex;
-    button.title = color.name;
-    
-    // Mark first one as active
-    if (index === 0) {
-      button.classList.add("active");
-    }
-    
-    button.addEventListener("click", function() {
-      // Remove active from all
-      document.querySelectorAll(".color-option").forEach(btn => {
-        btn.classList.remove("active");
-      });
-      
-      // Add active to this one
-      this.classList.add("active");
-      
-      // Update bunny color
-      bunnyCustomization.bodyColor = color.hex;
-      bunnyCustomization.innerEarColor = innerEarColors[color.hex];
-      applyBunnyColor();
+  const colorButtons = document.querySelectorAll(".options-grid .color-option");
+
+  if (colorButtons.length === 0) {
+    const colorGrid = document.querySelector(".options-grid");
+    colorOptions.forEach((color, index) => {
+      const button = document.createElement("button");
+      button.className = "color-option";
+      button.style.backgroundColor = color.hex;
+      button.title = color.name;
+      button.dataset.bodycolor = color.hex;
+      button.dataset.innerearscolor = innerEarColors[color.hex];
+
+      if (index === 0) {
+        button.classList.add("active");
+      }
+
+      button.addEventListener("click", colorButtonClickHandler);
+      colorGrid.appendChild(button);
     });
-    
-    colorGrid.appendChild(button);
+  } else {
+    colorButtons.forEach((button, index) => {
+      if (!button.dataset.bodycolor) {
+        button.dataset.bodycolor = button.getAttribute("data-bodycolor") || "#ffffff";
+      }
+      if (!button.dataset.innerearscolor) {
+        button.dataset.innerearscolor = button.getAttribute("data-innerearscolor") || "#ffc0d9";
+      }
+      if (index === 0 && !document.querySelector(".options-grid .color-option.active")) {
+        button.classList.add("active");
+      }
+      button.style.backgroundColor = button.dataset.bodycolor;
+      button.addEventListener("click", colorButtonClickHandler);
+    });
+  }
+}
+
+function colorButtonClickHandler() {
+  document.querySelectorAll(".options-grid .color-option").forEach((btn) => {
+    btn.classList.remove("active");
   });
+  this.classList.add("active");
+  bunnyCustomization.bodyColor = this.dataset.bodycolor;
+  bunnyCustomization.innerEarColor = this.dataset.innerearscolor;
+  applyBunnyColor();
 }
 
 // Apply color to bunny SVG
@@ -117,34 +131,17 @@ function applyBunnyColor() {
 
 // Initialize clothing buttons
 function initializeClothingButtons() {
-  const clothingGrid = document.querySelector(".options-grid-buttons");
-  
-  clothingItems.forEach((item, index) => {
-    const button = document.createElement("button");
-    button.className = "clothing-btn";
-    button.textContent = item.name;
-    button.dataset.id = item.id;
-    
-    // Mark first one (None) as active
-    if (index === 0) {
+  const clothingButtons = document.querySelectorAll(".options-grid-buttons .clothing-btn");
+  clothingButtons.forEach((button, index) => {
+    if (index === 0 && !document.querySelector(".options-grid-buttons .clothing-btn.active")) {
       button.classList.add("active");
     }
-    
     button.addEventListener("click", function() {
-      // Remove active from all clothing buttons in this section
-      document.querySelectorAll(".clothing-btn").forEach(btn => {
-        btn.classList.remove("active");
-      });
-      
-      // Add active to this one
+      clothingButtons.forEach((btn) => btn.classList.remove("active"));
       this.classList.add("active");
-      
-      // Update bunny clothing
-      bunnyCustomization.clothing = item.id;
+      bunnyCustomization.clothing = this.dataset.clothing;
       applyClothing();
     });
-    
-    clothingGrid.appendChild(button);
   });
 }
 
@@ -166,34 +163,17 @@ function applyClothing() {
 
 // Initialize accessories buttons
 function initializeAccessoriesButtons() {
-  const accessoriesGrid = document.querySelectorAll(".options-grid-buttons")[1];
-  
-  accessoriesItems.forEach((item, index) => {
-    const button = document.createElement("button");
-    button.className = "accessories-btn";
-    button.textContent = item.name;
-    button.dataset.id = item.id;
-    
-    // Mark first one (None) as active
-    if (index === 0) {
+  const accessoriesButtons = document.querySelectorAll(".options-grid-buttons .accessories-btn");
+  accessoriesButtons.forEach((button, index) => {
+    if (index === 0 && !document.querySelector(".options-grid-buttons .accessories-btn.active")) {
       button.classList.add("active");
     }
-    
     button.addEventListener("click", function() {
-      // Remove active from all accessories buttons in this section
-      document.querySelectorAll(".accessories-btn").forEach(btn => {
-        btn.classList.remove("active");
-      });
-      
-      // Add active to this one
+      accessoriesButtons.forEach((btn) => btn.classList.remove("active"));
       this.classList.add("active");
-      
-      // Update bunny accessories
-      bunnyCustomization.accessories = item.id;
+      bunnyCustomization.accessories = this.dataset.accessories;
       applyAccessories();
     });
-    
-    accessoriesGrid.appendChild(button);
   });
 }
 
@@ -318,187 +298,38 @@ function loadBunnyData(bunny) {
 function initializeFinishButton() {
   const finishBtn = document.getElementById("finishBtn");
   
-  finishBtn.addEventListener("click", function() {
-    // Validate name
+  finishBtn.addEventListener("click", async function() {
     if (!bunnyCustomization.name || bunnyCustomization.name.trim().length === 0) {
       bunnyCustomization.name = "My Bunny";
     }
-    
-    // Save to localStorage
+
+    const avatarUrl = getSvgAvatarUrl();
     const bunnyData = {
       name: bunnyCustomization.name,
       bodyColor: bunnyCustomization.bodyColor,
       innerEarColor: bunnyCustomization.innerEarColor,
       clothing: bunnyCustomization.clothing,
-      accessories: bunnyCustomization.accessories
+      accessories: bunnyCustomization.accessories,
+      avatarUrl,
     };
     
     localStorage.setItem("bunnycloud_bunny", JSON.stringify(bunnyData));
+    localStorage.setItem("bunnycloud_bunnyName", bunnyCustomization.name);
     
-    // Show animation
     this.textContent = "Saved!";
     this.style.background = "linear-gradient(135deg, #7dd3dd 0%, #5bc4d1 100%)";
     
-    // Redirect after 800ms
     setTimeout(() => {
       window.location.href = "home.html";
     }, 800);
   });
 }
-      option.classList.add("active");
-      bunnyData.color = option.getAttribute("data-color");
-      updateBunnyColor();
-    });
-  });
 
-  // Headphones Selection
-  headphonesOptions.forEach((option) => {
-    if (option.getAttribute("data-headphones") === bunnyData.headphones) {
-      option.classList.add("active");
-    }
-
-    option.addEventListener("click", () => {
-      headphonesOptions.forEach((o) => o.classList.remove("active"));
-      option.classList.add("active");
-      bunnyData.headphones = option.getAttribute("data-headphones");
-    });
-  });
-
-  // Clothes Selection
-  clothesOptions.forEach((option) => {
-    if (option.getAttribute("data-clothes") === bunnyData.clothes) {
-      option.classList.add("active");
-    }
-
-    option.addEventListener("click", () => {
-      clothesOptions.forEach((o) => o.classList.remove("active"));
-      option.classList.add("active");
-      bunnyData.clothes = option.getAttribute("data-clothes");
-    });
-  });
-
-  // Accessories Selection
-  accessoriesOptions.forEach((option) => {
-    if (option.getAttribute("data-accessories") === bunnyData.accessories) {
-      option.classList.add("active");
-    }
-
-    option.addEventListener("click", () => {
-      accessoriesOptions.forEach((o) => o.classList.remove("active"));
-      option.classList.add("active");
-      bunnyData.accessories = option.getAttribute("data-accessories");
-    });
-  });
-
-  // Random Button
-  randomButton.addEventListener("click", () => {
-    const colors = ["#dcc6ff", "#ffc2e3", "#bfeaff", "#fff9c4", "#c6f3db", "#ffe9b5"];
-    const headphones = ["none", "music", "gaming", "study"];
-    const clothes = ["none", "hoodie", "dress", "sweater"];
-    const accessories = ["none", "glasses", "crown", "bowtie"];
-
-    bunnyData.color = colors[Math.floor(Math.random() * colors.length)];
-    bunnyData.headphones = headphones[Math.floor(Math.random() * headphones.length)];
-    bunnyData.clothes = clothes[Math.floor(Math.random() * clothes.length)];
-    bunnyData.accessories = accessories[Math.floor(Math.random() * accessories.length)];
-
-    // Update UI
-    updateColorSelection();
-    updateHeadphonesSelection();
-    updateClothesSelection();
-    updateAccessoriesSelection();
-    updateBunnyColor();
-  });
-
-  // Finish Button
-  finishButton.addEventListener("click", () => {
-    if (!bunnyData.name.trim()) {
-      alert("Prosím daj svojmu bunnýmu meno! 🐰");
-      bunnyNameInput.focus();
-      return;
-    }
-
-    // Save bunny data
-    localStorage.setItem("bunnycloud_bunny", JSON.stringify(bunnyData));
-    localStorage.setItem("bunnycloud_bunnyName", bunnyData.name);
-
-    // Animation
-    finishButton.style.transform = "scale(0.96)";
-    finishButton.textContent = "✓ Hotovo!";
-    finishButton.style.opacity = "0.7";
-
-    setTimeout(() => {
-      window.location.href = "home.html";
-    }, 800);
-  });
-
-  // ===== HELPER FUNCTIONS =====
-
-  function updateBunnyColor() {
-    const color = bunnyData.color;
-    const lightColor = adjustBrightness(color, 30);
-
-    bunnyBody.setAttribute("fill", color);
-    bunnyEarLeft.setAttribute("fill", color);
-    bunnyEarRight.setAttribute("fill", color);
-    bunnyTail.setAttribute("fill", "white");
-
-    // Update inner ears color
-    const innerEars = document.querySelectorAll("ellipse[fill='#f0d9ff']");
-    innerEars.forEach((ear) => {
-      ear.setAttribute("fill", lightColor);
-    });
-  }
-
-  function adjustBrightness(color, amount) {
-    let col = parseInt(color.slice(1), 16);
-    let r = (col >> 16) & 255;
-    let g = (col >> 8) & 255;
-    let b = col & 255;
-
-    r = Math.min(255, r + amount);
-    g = Math.min(255, g + amount);
-    b = Math.min(255, b + amount);
-
-    return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, "0");
-  }
-
-  function updateColorSelection() {
-    colorOptions.forEach((option) => {
-      option.classList.remove("active");
-      if (option.getAttribute("data-color") === bunnyData.color) {
-        option.classList.add("active");
-      }
-    });
-  }
-
-  function updateHeadphonesSelection() {
-    headphonesOptions.forEach((option) => {
-      option.classList.remove("active");
-      if (option.getAttribute("data-headphones") === bunnyData.headphones) {
-        option.classList.add("active");
-      }
-    });
-  }
-
-  function updateClothesSelection() {
-    clothesOptions.forEach((option) => {
-      option.classList.remove("active");
-      if (option.getAttribute("data-clothes") === bunnyData.clothes) {
-        option.classList.add("active");
-      }
-    });
-  }
-
-  function updateAccessoriesSelection() {
-    accessoriesOptions.forEach((option) => {
-      option.classList.remove("active");
-      if (option.getAttribute("data-accessories") === bunnyData.accessories) {
-        option.classList.add("active");
-      }
-    });
-  }
-
-  // Initialize bunny color on load
-  updateBunnyColor();
-});
+function getSvgAvatarUrl() {
+  const serializer = new XMLSerializer();
+  const svgText = serializer.serializeToString(bunnySVG);
+  const encoded = encodeURIComponent(svgText)
+    .replace(/'/g, "%27")
+    .replace(/\x22/g, "%22");
+  return `data:image/svg+xml;charset=utf-8,${encoded}`;
+}

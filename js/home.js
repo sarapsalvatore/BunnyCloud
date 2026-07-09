@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 1. SPRÁVNE MENO PODĽA VYTVORENÉHO AVATARA
+  const savedUser = JSON.parse(localStorage.getItem("bunnycloud_currentUser") || "{}");
   const savedName =
+    savedUser.username ||
     localStorage.getItem("bunnycloud_username") ||
     localStorage.getItem("bunnycloud_meno") ||
     localStorage.getItem("username") ||
     "Sarka";
+
+  const savedBunny = JSON.parse(localStorage.getItem("bunnycloud_bunny") || "{}");
 
   // Prepíšeme texty v HTML, aby ukazovali reálne zadané meno
   const heroGreeting = document.getElementById("heroGreetingName");
@@ -12,6 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (heroGreeting) heroGreeting.textContent = savedName;
   if (profileName) profileName.textContent = savedName;
+
+  const avatarImgs = document.querySelectorAll(
+    "#sidebarBunny, #heroBunny, #roomBunny, .mini-bunny-avatar img",
+  );
+  const avatarSrc = savedBunny.avatarUrl || "../images/bunny-base.jpg";
+  avatarImgs.forEach((img) => {
+    if (img) img.src = avatarSrc;
+  });
 
   // Pri štarte nastavíme základnú študijnú náladu
   changeMood("study");
