@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bunnycloud - Home</title>
+    <title>Bunnycloud - Domov</title>
+    <link rel="stylesheet" href="../css/intro.css" />
     <link rel="stylesheet" href="../css/home.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -15,197 +16,199 @@
       <aside class="sidebar">
         <div class="brand">
           <div class="logo-svg">
-            <svg viewBox="0 0 100 100" width="30" height="30">
-              <path
-                d="M30,50 C20,50 15,30 25,15 C35,0 45,20 45,40 C45,20 55,0 65,15 C75,30 70,50 60,50 C75,50 85,65 80,80 C75,95 25,95 20,80 C15,65 25,50 30,50 Z"
-                fill="#b9a6ff"
-              />
-            </svg>
+            <img
+              src="../images/logo.png"
+              alt="Bunnycloud"
+              width="24"
+              height="24"
+            />
           </div>
           <h2>Bunnycloud</h2>
         </div>
+
         <div class="sidebar-bunny-card">
           <img
-            src="../images/bunny-base.svg"
-            alt="Bunny Profile"
             id="sidebarBunny"
+            src="../images/bunny-base.svg"
+            alt="Môj avatar"
           />
         </div>
-        <nav class="nav-menu">
+
+        <div class="nav-menu">
           <button class="nav-btn active">
-            <span class="nav-icon">🏠</span><span>Home</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">🔎</span><span>Search</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">📚</span><span>Library</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">💖</span><span>Favorites</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">🎧</span><span>Playlists</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">🌈</span><span>Bunny Moods</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">🎨</span><span>Bunny Studio</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">⬇️</span><span>Downloads</span></button
-          ><button class="nav-btn">
-            <span class="nav-icon">⚙️</span><span>Settings</span>
+            <span class="nav-icon">🏡</span>
+            Home
           </button>
-        </nav>
+          <button class="nav-btn">
+            <span class="nav-icon">🎧</span>
+            Listen
+          </button>
+          <button class="nav-btn">
+            <span class="nav-icon">🧸</span>
+            Bunny Room
+          </button>
+          <button class="nav-btn">
+            <span class="nav-icon">📚</span>
+            Library
+          </button>
+        </div>
+
         <div class="sidebar-user-profile">
           <div class="user-avatar"></div>
           <div class="user-info">
-            <span class="username" id="userProfileName">Sarka</span
-            ><span class="user-status">Bunny Lover</span>
-            <div class="xp-container">
-              <div class="xp-bar" style="width: 72%"></div>
-            </div>
+            <div class="username" id="userProfileName">Sarka</div>
+            <div class="user-status">Ready to vibe</div>
           </div>
         </div>
       </aside>
+
       <main class="main-content">
         <div class="search-bar-container">
-          <input
-            type="text"
-            placeholder="Search for songs, albums, artists..."
-          />
+          <input type="text" placeholder="Search for songs, artists or moods" />
         </div>
+
         <section class="hero-banner" id="mainHero">
           <div class="hero-text">
-            <p>Good evening,</p>
-            <h1 id="heroGreetingName">Sarka</h1>
-            <p class="subtext">Ready to discover something beautiful today?</p>
-            <button class="continue-btn">Continue Listening</button>
+            <p>Welcome back</p>
+            <h1>Hello, <span id="heroGreetingName">Sarka</span> 👋</h1>
+            <p class="subtext">
+              Your cozy corner is waiting. Pick a mood and let the music follow
+              you.
+            </p>
+            <button class="continue-btn">Continue</button>
           </div>
           <div class="hero-img-box">
             <img
-              src="../images/bunny-base.svg"
-              alt="Hero Bunny"
               id="heroBunny"
+              src="../images/bunny-base.svg"
+              alt="Bunny avatar"
             />
           </div>
         </section>
+
         <section class="moods-section">
-          <h3>How are you feeling?</h3>
-          <div class="moods-list">
+          <div class="mood-cards-row">
+            <button class="mood-card active" onclick="changeMood('study')">
+              <div class="mood-icon study"></div>
+              <p>Study</p>
+            </button>
             <button class="mood-card" onclick="changeMood('happy')">
               <div class="mood-icon happy"></div>
-              <p>Happy</p></button
-            ><button class="mood-card" onclick="changeMood('calm')">
+              <p>Happy</p>
+            </button>
+            <button class="mood-card" onclick="changeMood('calm')">
               <div class="mood-icon calm"></div>
-              <p>Calm</p></button
-            ><button class="mood-card" onclick="changeMood('dreamy')">
+              <p>Calm</p>
+            </button>
+            <button class="mood-card" onclick="changeMood('dreamy')">
               <div class="mood-icon dreamy"></div>
-              <p>Dreamy</p></button
-            ><button class="mood-card" onclick="changeMood('rain')">
+              <p>Dreamy</p>
+            </button>
+            <button class="mood-card" onclick="changeMood('rain')">
               <div class="mood-icon rain"></div>
-              <p>Rain</p></button
-            ><button class="mood-card active" onclick="changeMood('study')">
-              <div class="mood-icon study"></div>
-              <p>Study</p></button
-            ><button class="mood-card" onclick="changeMood('gaming')">
+              <p>Rain</p>
+            </button>
+            <button class="mood-card" onclick="changeMood('gaming')">
               <div class="mood-icon gaming"></div>
-              <p>Gaming</p></button
-            ><button class="mood-card" onclick="changeMood('love')">
-              <div class="mood-icon love"></div>
-              <p>Love</p></button
-            ><button class="mood-card" onclick="changeMood('sleep')">
-              <div class="mood-icon sleep"></div>
-              <p>Sleep</p></button
-            ><button class="mood-card more-btn">
-              <div class="mood-icon more"></div>
-              <p>More</p>
+              <p>Gaming</p>
             </button>
           </div>
         </section>
-        <div class="music-sections-grid">
-          <div class="grid-column">
+
+        <section class="music-sections-grid">
+          <div class="music-column">
             <div class="column-header">
               <h3>Made for your mood</h3>
               <span>See all</span>
             </div>
             <div class="song-cards-container" id="suggestedSongs"></div>
           </div>
-          <div class="grid-column">
+
+          <div class="music-column">
             <div class="column-header">
-              <h3>Recently Played</h3>
+              <h3>Recently played</h3>
               <span>See all</span>
             </div>
             <div class="recent-list">
               <div class="recent-row">
-                <div class="recent-cover p1"></div>
+                <div class="recent-cover c1"></div>
                 <div>
-                  <h4>Cloudy Days</h4>
-                  <p>Lo-fi Bunny</p>
+                  <h4>Midnight Drift</h4>
+                  <p>Lo-fi • 12 min</p>
                 </div>
               </div>
               <div class="recent-row">
-                <div class="recent-cover p2"></div>
+                <div class="recent-cover c2"></div>
                 <div>
-                  <h4>Pastel Dreams</h4>
-                  <p>Lo-fi Bunny</p>
+                  <h4>Sweet Afternoon</h4>
+                  <p>Chill • 8 min</p>
                 </div>
               </div>
               <div class="recent-row">
-                <div class="recent-cover p3"></div>
+                <div class="recent-cover c3"></div>
                 <div>
-                  <h4>Moonlight</h4>
-                  <p>Chillhop</p>
+                  <h4>Clouds & Coffee</h4>
+                  <p>Jazz • 9 min</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </main>
+
       <aside class="right-panel">
-        <h3>Bunny Room</h3>
+        <h3>Bunny room</h3>
         <div class="bunny-room-box">
-          <img src="../images/bunny-base.svg" alt="Bunny Room" id="roomBunny" />
+          <img id="roomBunny" src="../images/bunny-base.svg" alt="Bunny room" />
         </div>
+
         <div class="quote-box">
-          <p id="moodQuote">"Take a break and enjoy your favorite song."</p>
+          <p id="moodQuote">"Focus on your dreams, track by track."</p>
         </div>
+
         <div class="library-header">
-          <h3>Your Library</h3>
-          <span>+ New</span>
+          <h3>Library</h3>
+          <span>View all</span>
         </div>
         <div class="library-list">
           <div class="lib-row">
-            <div class="lib-icon l1"></div>
+            <div class="lib-icon c1"></div>
             <div>
-              <h4>Liked Songs</h4>
-              <p>128 songs</p>
+              <h4>Focus Flow</h4>
+              <p>Study mix</p>
             </div>
           </div>
           <div class="lib-row">
-            <div class="lib-icon l2"></div>
+            <div class="lib-icon c2"></div>
             <div>
-              <h4>My Songs</h4>
-              <p>64 songs</p>
+              <h4>Sunset Loops</h4>
+              <p>Evening chill</p>
             </div>
           </div>
           <div class="lib-row">
-            <div class="lib-icon l3"></div>
+            <div class="lib-icon c3"></div>
             <div>
-              <h4>Chill Playlist</h4>
-              <p>32 songs</p>
+              <h4>Dreamy Nights</h4>
+              <p>Sleep playlist</p>
             </div>
           </div>
         </div>
       </aside>
+
       <footer class="bottom-player">
         <div class="player-left">
           <div class="current-cover"></div>
           <div>
-            <h4 id="currentTrackTitle">Rainy Window</h4>
-            <p id="currentTrackArtist">Lo-fi Bunny</p>
+            <h4>Moonlight Study</h4>
+            <p>Quiet hours</p>
           </div>
         </div>
+
         <div class="player-center">
           <div class="player-buttons">
-            <button class="p-btn">⏮</button
-            ><button class="play-circle" id="mainPlayBtn">▶</button
-            ><button class="p-btn">⏭</button>
+            <button class="p-btn">⏮</button>
+            <button id="mainPlayBtn" class="play-circle">▶</button>
+            <button class="p-btn">⏭</button>
           </div>
           <div class="timeline-box">
             <span class="time-text" id="currentTime">1:24</span>
@@ -213,31 +216,23 @@
               <div
                 class="progress-bar-fill"
                 id="playerProgress"
-                style="width: 38%"
+                style="width: 35%"
               ></div>
             </div>
             <span class="time-text">3:45</span>
           </div>
         </div>
+
         <div class="player-right">
-          <button class="lyrics-btn">Lyrics</button
-          ><button class="queue-btn">Queue</button>
-          <div class="volume-box">
-            <span>Vol</span
-            ><input
-              type="range"
-              class="vol-slider"
-              min="0"
-              max="100"
-              value="80"
-            />
-          </div>
           <div class="mini-bunny-avatar">
-            <img src="../images/bunny-base.svg" alt="Mini Bunny" />
+            <img src="../images/bunny-base.svg" alt="Mini bunny" />
           </div>
+          <button class="lyrics-btn">Lyrics</button>
+          <button class="queue-btn">Queue</button>
         </div>
       </footer>
     </div>
+
     <script src="../js/home.js"></script>
   </body>
 </html>

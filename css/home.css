@@ -272,78 +272,102 @@ body::before {
 }
 
 .mood-card {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   padding: 12px 10px;
-  min-width: 80px;
-  border-radius: 18px;
+  min-width: 72px;
+  border-radius: 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.mood-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(129, 102, 232, 0.12);
 }
 
 .mood-card p {
   font-size: 11px;
-  color: #585070;
+  color: #675f81;
+  margin: 0;
 }
 
 .mood-icon {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .mood-card.active {
   border-color: #b091ff;
-  background: rgba(245, 237, 255, 0.95);
+  background: rgba(245, 237, 255, 0.98);
 }
 
 .music-sections-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 22px;
 }
 
 .column-header h3 {
-  font-size: 14px;
+  font-size: 15px;
   color: #3b315f;
 }
 
 .column-header span {
   font-size: 12px;
   color: #7d62e6;
+  cursor: pointer;
 }
 
 .song-cards-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
 
 .s-card {
-  background: rgba(255, 255, 255, 0.6);
-  padding: 14px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: 0 10px 30px rgba(138, 103, 238, 0.08);
+  position: relative;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 18px 32px rgba(138, 103, 238, 0.08);
+  overflow: hidden;
+}
+
+.s-card::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
 }
 
 .s-cover {
-  height: 96px;
-  border-radius: 20px;
-  margin-bottom: 12px;
+  height: 118px;
+  border-radius: 22px;
+  margin-bottom: 14px;
 }
 
 .s-card h4 {
-  font-size: 13px;
-  margin-bottom: 6px;
+  font-size: 14px;
+  margin-bottom: 4px;
 }
 
 .s-card p {
-  font-size: 11px;
+  font-size: 12px;
   color: #6a5d82;
 }
 
@@ -824,20 +848,32 @@ body::before {
 /* Kontajner pre 4 karty vedľa seba s flexwrapom alebo mini gridom */
 .song-cards-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .s-card {
-  background: rgba(255, 255, 255, 0.5);
-  padding: 10px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.78);
+  padding: 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  box-shadow: 0 18px 32px rgba(141, 120, 255, 0.08);
 }
+
 .s-cover {
-  height: 85px;
-  border-radius: 12px;
-  margin-bottom: 6px;
+  height: 110px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.s-card h4 {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.s-card p {
+  font-size: 12px;
+  color: #675f88;
 }
 .s-card h4 {
   font-size: 12px;
@@ -992,12 +1028,118 @@ body::before {
 /* SPODNÝ PREHRÁVAČ */
 .bottom-player {
   grid-column: 1 / -1;
-  background: rgba(255, 255, 255, 0.5);
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.88);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 18px 30px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 250px;
+}
+
+.current-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffd7ef, #d9c4ff);
+}
+
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1;
+  max-width: 520px;
+}
+
+.player-buttons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.p-btn {
+  background: rgba(255, 255, 255, 0.82);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #5a5080;
+  transition: transform 0.2s ease;
+}
+
+.p-btn:hover {
+  transform: scale(1.05);
+}
+
+.play-circle {
+  background: #7d5ef5;
+  color: white;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.timeline-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.progress-bar-bg {
+  flex-grow: 1;
+  height: 5px;
+  background: rgba(145, 104, 255, 0.16);
+  border-radius: 999px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #8d78ff, #b592ff);
+  border-radius: 999px;
+}
+
+.player-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 280px;
+  justify-content: flex-end;
+}
+
+.lyrics-btn,
+.queue-btn {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  padding: 8px 14px;
+  border-radius: 16px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.mini-bunny-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid rgba(255, 255, 255, 0.86);
 }
 
 .player-left {

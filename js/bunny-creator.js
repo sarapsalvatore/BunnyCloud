@@ -333,7 +333,11 @@ function loadBunnyData(bunny) {
 
 // Initialize finish button
 function initializeFinishButton() {
-  const finishBtn = document.getElementById("finishBtn");
+  const finishBtn =
+    document.getElementById("finishButton") ||
+    document.getElementById("finishBtn");
+
+  if (!finishBtn) return;
 
   finishBtn.addEventListener("click", async function () {
     if (
@@ -355,12 +359,17 @@ function initializeFinishButton() {
 
     localStorage.setItem("bunnycloud_bunny", JSON.stringify(bunnyData));
     localStorage.setItem("bunnycloud_bunnyName", bunnyCustomization.name);
+    localStorage.setItem(
+      "bunnycloud_currentUser",
+      JSON.stringify({ username: bunnyCustomization.name }),
+    );
+    localStorage.setItem("bunnycloud_username", bunnyCustomization.name);
 
     this.textContent = "Saved!";
     this.style.background = "linear-gradient(135deg, #7dd3dd 0%, #5bc4d1 100%)";
 
     setTimeout(() => {
-      window.location.href = "home.html";
+      window.location.assign("home.html");
     }, 800);
   });
 }

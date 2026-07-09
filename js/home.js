@@ -1,18 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 1. SPRÁVNE MENO PODĽA VYTVORENÉHO AVATARA
-  const savedUser = JSON.parse(
-    localStorage.getItem("bunnycloud_currentUser") || "{}",
-  );
-  const savedName =
-    savedUser.username ||
-    localStorage.getItem("bunnycloud_username") ||
-    localStorage.getItem("bunnycloud_meno") ||
-    localStorage.getItem("username") ||
-    "Sarka";
+  let savedName = "Sarka";
+  try {
+    const savedUser = JSON.parse(
+      localStorage.getItem("bunnycloud_currentUser") || "{}",
+    );
+    savedName =
+      savedUser.username ||
+      localStorage.getItem("bunnycloud_username") ||
+      localStorage.getItem("bunnycloud_meno") ||
+      localStorage.getItem("bunnycloud_bunnyName") ||
+      localStorage.getItem("username") ||
+      savedName;
+  } catch (error) {
+    savedName = "Sarka";
+  }
 
-  const savedBunny = JSON.parse(
-    localStorage.getItem("bunnycloud_bunny") || "{}",
-  );
+  let savedBunny = {};
+  try {
+    savedBunny = JSON.parse(localStorage.getItem("bunnycloud_bunny") || "{}");
+  } catch (error) {
+    savedBunny = {};
+  }
 
   // Prepíšeme texty v HTML, aby ukazovali reálne zadané meno
   const heroGreeting = document.getElementById("heroGreetingName");
@@ -86,6 +95,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c1"></div><h4>Rainy Nights</h4><p>Lo-fi • 32 songs</p></div>
                 <div class="s-card"><div class="s-cover c3"></div><h4>Late Thoughts</h4><p>Chill • 24 songs</p></div>
+                <div class="s-card"><div class="s-cover c2"></div><h4>Moonlight Study</h4><p>Ambient • 18 songs</p></div>
+                <div class="s-card"><div class="s-cover c4"></div><h4>Soft Keys</h4><p>Piano • 14 songs</p></div>
             `,
     },
     happy: {
@@ -95,6 +106,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c2"></div><h4>Sunny Beats</h4><p>Happy • 40 songs</p></div>
                 <div class="s-card"><div class="s-cover c4"></div><h4>Pastel Energy</h4><p>Pop • 18 songs</p></div>
+                <div class="s-card"><div class="s-cover c1"></div><h4>Bright Days</h4><p>Indie • 26 songs</p></div>
+                <div class="s-card"><div class="s-cover c3"></div><h4>Joy Ride</h4><p>Dance • 22 songs</p></div>
             `,
     },
     calm: {
@@ -104,6 +117,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c3"></div><h4>Soft Piano</h4><p>Instrumental • 30 songs</p></div>
                 <div class="s-card"><div class="s-cover c1"></div><h4>Green Garden</h4><p>Ambient • 15 songs</p></div>
+                <div class="s-card"><div class="s-cover c4"></div><h4>Ocean Mist</h4><p>Chill • 20 songs</p></div>
+                <div class="s-card"><div class="s-cover c2"></div><h4>Quiet Hours</h4><p>Focus • 18 songs</p></div>
             `,
     },
     dreamy: {
@@ -113,6 +128,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c3"></div><h4>Ethereal Dreams</h4><p>Ambient • 28 songs</p></div>
                 <div class="s-card"><div class="s-cover c1"></div><h4>Cloud Nine</h4><p>Dreamy • 22 songs</p></div>
+                <div class="s-card"><div class="s-cover c4"></div><h4>Neon Stars</h4><p>Glow • 19 songs</p></div>
+                <div class="s-card"><div class="s-cover c2"></div><h4>Velvet Sky</h4><p>Chillwave • 21 songs</p></div>
             `,
     },
     rain: {
@@ -122,6 +139,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c4"></div><h4>Rainy Day Vibes</h4><p>Lo-fi • 35 songs</p></div>
                 <div class="s-card"><div class="s-cover c1"></div><h4>Soft Rain</h4><p>Ambient • 26 songs</p></div>
+                <div class="s-card"><div class="s-cover c2"></div><h4>Watercolor</h4><p>Chill • 24 songs</p></div>
+                <div class="s-card"><div class="s-cover c3"></div><h4>Cool Drops</h4><p>Relax • 18 songs</p></div>
             `,
     },
     gaming: {
@@ -131,6 +150,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c2"></div><h4>Arcade Dreams</h4><p>Gaming • 45 songs</p></div>
                 <div class="s-card"><div class="s-cover c3"></div><h4>Battle Beats</h4><p>Electronic • 38 songs</p></div>
+                <div class="s-card"><div class="s-cover c1"></div><h4>Power Up</h4><p>EDM • 30 songs</p></div>
+                <div class="s-card"><div class="s-cover c4"></div><h4>Neo Runner</h4><p>Synth • 27 songs</p></div>
             `,
     },
     love: {
@@ -140,6 +161,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c2"></div><h4>Heart Strings</h4><p>Romance • 42 songs</p></div>
                 <div class="s-card"><div class="s-cover c4"></div><h4>Love Notes</h4><p>Ballads • 31 songs</p></div>
+                <div class="s-card"><div class="s-cover c1"></div><h4>Moon Kissed</h4><p>R&B • 29 songs</p></div>
+                <div class="s-card"><div class="s-cover c3"></div><h4>Soft Embrace</h4><p>Acoustic • 25 songs</p></div>
             `,
     },
     sleep: {
@@ -149,6 +172,8 @@ function changeMood(mood) {
       songs: `
                 <div class="s-card"><div class="s-cover c1"></div><h4>Deep Sleep</h4><p>Sounds • 50 songs</p></div>
                 <div class="s-card"><div class="s-cover c3"></div><h4>Starry Night</h4><p>Lullaby • 20 songs</p></div>
+                <div class="s-card"><div class="s-cover c2"></div><h4>Midnight Calm</h4><p>Dream • 22 songs</p></div>
+                <div class="s-card"><div class="s-cover c4"></div><h4>Cloud Rest</h4><p>Sleep • 18 songs</p></div>
             `,
     },
   };
