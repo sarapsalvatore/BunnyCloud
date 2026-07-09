@@ -12,10 +12,11 @@ let bunnyCustomization = {
 // SVG Element selectors
 const bunnySVG = document.getElementById("bunnySVG");
 const bunnyBody = document.getElementById("bunnyBody");
-const bunnyEarLeft = document.getElementById("bunnyEarLeft");
-const bunnyEarRight = document.getElementById("bunnyEarRight");
-const bunnyEarLeftInner = document.getElementById("bunnyEarLeftInner");
-const bunnyEarRightInner = document.getElementById("bunnyEarRightInner");
+const bunnyHead = document.getElementById("bunnyHeadShape");
+const bunnyEarLeft = document.getElementById("earLeftOuter");
+const bunnyEarRight = document.getElementById("earRightOuter");
+const bunnyEarLeftInner = document.getElementById("earLeftInner");
+const bunnyEarRightInner = document.getElementById("earRightInner");
 
 // Color options - 5 pastel colors
 const colorOptions = [
@@ -128,10 +129,15 @@ function colorButtonClickHandler() {
 // Apply color to bunny SVG
 function applyBunnyColor() {
   bunnyBody.setAttribute("fill", bunnyCustomization.bodyColor);
-  bunnyEarLeft.setAttribute("fill", bunnyCustomization.bodyColor);
-  bunnyEarRight.setAttribute("fill", bunnyCustomization.bodyColor);
-  bunnyEarLeftInner.setAttribute("fill", bunnyCustomization.innerEarColor);
-  bunnyEarRightInner.setAttribute("fill", bunnyCustomization.innerEarColor);
+  if (bunnyHead) bunnyHead.setAttribute("fill", bunnyCustomization.bodyColor);
+  if (bunnyEarLeft)
+    bunnyEarLeft.setAttribute("fill", bunnyCustomization.bodyColor);
+  if (bunnyEarRight)
+    bunnyEarRight.setAttribute("fill", bunnyCustomization.bodyColor);
+  if (bunnyEarLeftInner)
+    bunnyEarLeftInner.setAttribute("fill", bunnyCustomization.innerEarColor);
+  if (bunnyEarRightInner)
+    bunnyEarRightInner.setAttribute("fill", bunnyCustomization.innerEarColor);
 }
 
 // Initialize clothing buttons
@@ -244,7 +250,7 @@ function initializeNameInput() {
 
 // Initialize random button
 function initializeRandomButton() {
-  const randomBtn = document.getElementById("randomBtn");
+  const randomBtn = document.getElementById("randomButton");
 
   randomBtn.addEventListener("click", function () {
     // Random color
@@ -279,7 +285,7 @@ function updateUIFromCustomization() {
   // Update color button
   document.querySelectorAll(".color-option").forEach((btn) => {
     btn.classList.remove("active");
-    if (btn.style.backgroundColor === bunnyCustomization.bodyColor) {
+    if (btn.dataset.bodycolor === bunnyCustomization.bodyColor) {
       btn.classList.add("active");
     }
   });
@@ -287,7 +293,7 @@ function updateUIFromCustomization() {
   // Update clothing button
   document.querySelectorAll(".clothing-btn").forEach((btn) => {
     btn.classList.remove("active");
-    if (btn.dataset.id === bunnyCustomization.clothing) {
+    if (btn.dataset.clothing === bunnyCustomization.clothing) {
       btn.classList.add("active");
     }
   });
@@ -295,7 +301,7 @@ function updateUIFromCustomization() {
   // Update accessories button
   document.querySelectorAll(".accessories-btn").forEach((btn) => {
     btn.classList.remove("active");
-    if (btn.dataset.id === bunnyCustomization.accessories) {
+    if (btn.dataset.accessories === bunnyCustomization.accessories) {
       btn.classList.add("active");
     }
   });

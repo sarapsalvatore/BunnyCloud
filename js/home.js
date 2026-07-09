@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const avatarImgs = document.querySelectorAll(
     "#sidebarBunny, #heroBunny, #roomBunny, .mini-bunny-avatar img",
   );
-  const avatarSrc = savedBunny.avatarUrl || "../images/bunny-base.jpg";
+  const avatarSrc = savedBunny.avatarUrl || "../images/bunny-base.svg";
   avatarImgs.forEach((img) => {
     if (img) img.src = avatarSrc;
   });
