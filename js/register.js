@@ -67,7 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Kontrola či účet už existuje
-    const existingUsers = JSON.parse(localStorage.getItem("bunnycloud_users") || "[]");
+    const existingUsers = JSON.parse(
+      localStorage.getItem("bunnycloud_users") || "[]",
+    );
     if (existingUsers.some((u) => u.email === email)) {
       showError(
         '❌ Tento email je už registrovaný! <a href="login.html">Prihlás sa sem</a>.',
@@ -106,4 +108,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
   };
 });
-

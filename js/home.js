@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 1. SPRÁVNE MENO PODĽA VYTVORENÉHO AVATARA
-  const savedUser = JSON.parse(localStorage.getItem("bunnycloud_currentUser") || "{}");
+  const savedUser = JSON.parse(
+    localStorage.getItem("bunnycloud_currentUser") || "{}",
+  );
   const savedName =
     savedUser.username ||
     localStorage.getItem("bunnycloud_username") ||
@@ -8,7 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.getItem("username") ||
     "Sarka";
 
-  const savedBunny = JSON.parse(localStorage.getItem("bunnycloud_bunny") || "{}");
+  const savedBunny = JSON.parse(
+    localStorage.getItem("bunnycloud_bunny") || "{}",
+  );
 
   // Prepíšeme texty v HTML, aby ukazovali reálne zadané meno
   const heroGreeting = document.getElementById("heroGreetingName");

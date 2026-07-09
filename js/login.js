@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const existingUsers = JSON.parse(localStorage.getItem("bunnycloud_users") || "[]");
+    const existingUsers = JSON.parse(
+      localStorage.getItem("bunnycloud_users") || "[]",
+    );
     const user = existingUsers.find((u) => u.email === email);
 
     if (!user) {
