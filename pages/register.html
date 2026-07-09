@@ -1,42 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html lang="sk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bunnycloud - Register</title>
     <link rel="stylesheet" href="../css/intro.css" />
     <link rel="stylesheet" href="../css/register.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="intro">
-      <div class="intro-content">
-        <img
-          src="../images/logo.png"
-          alt="Bunnycloud Logo"
-          class="intro-logo-img"
-        />
-
-        <h2 id="registerTitle" class="register-title">Create Account</h2>
-        <p id="registerSubtitle" class="register-subtitle">
-          Sign up to start listening
-        </p>
-
-        <div class="form-group">
-          <input
-            type="text"
-            id="username"
-            placeholder="Your username"
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
+    <div class="register-container">
+      <div class="register-card">
+        <div style="text-align: center; margin-bottom: 20px">
+          <img
+            src="../images/logo.png"
+            alt="Bunnycloud Logo"
+            class="register-logo"
           />
         </div>
 
-        <button id="submitButton">Continue</button>
+        <h2 class="register-title">Create Account</h2>
+        <p class="register-subtitle">
+          Join Bunnycloud & find your perfect mood 🐰
+        </p>
+
+        <div id="errorMessage" class="error-message"></div>
+
+        <form class="register-form" id="registerForm">
+          <div class="input-field">
+            <input
+              type="text"
+              id="username"
+              placeholder="Username"
+              required
+              minlength="3"
+            />
+          </div>
+
+          <div class="input-field">
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+
+          <div class="input-field">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+              minlength="6"
+            />
+          </div>
+
+          <div class="input-field">
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              required
+              minlength="6"
+            />
+          </div>
+
+          <button type="submit" class="register-btn" id="submitButton">
+            Continue to Bunny Creator
+          </button>
+        </form>
+
+        <div class="login-link">
+          Already have an account?
+          <a href="javascript:void(0);" onclick="goToLogin()">Log in</a>
+        </div>
       </div>
     </div>
 

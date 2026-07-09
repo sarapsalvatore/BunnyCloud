@@ -3,81 +3,180 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bunnycloud - Customize Your Bunny</title>
+    <title>Bunnycloud - Create Your Bunny</title>
     <link rel="stylesheet" href="../css/intro.css" />
     <link rel="stylesheet" href="../css/bunny-creator.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="intro">
-      <div class="intro-content creator-card">
-        <h2 class="creator-title">Style Your Bunny</h2>
-        <p class="creator-subtitle">Choose clothes and accessories</p>
-
-        <div class="bunny-preview-container" id="bunnyPreview">
-          <img
-            src="../images/bunny-base.jpg"
-            alt="Base Bunny"
-            class="layer base-bunny"
-          />
-
-          <img
-            src=""
-            alt="Jacket"
-            id="layerJacket"
-            class="layer clothing-layer"
-            style="display: none"
-          />
-          <img
-            src=""
-            alt="Glasses"
-            id="layerGlasses"
-            class="layer clothing-layer"
-            style="display: none"
-          />
+    <div class="creator-container">
+      <div class="creator-card">
+        <!-- Header -->
+        <div class="creator-header">
+          <h1 class="creator-title">Design Your Bunny</h1>
+          <p class="creator-subtitle">Create your perfect companion</p>
         </div>
 
-        <div class="creator-tabs">
-          <div class="custom-section">
-            <h3>Clothes</h3>
+        <!-- Bunny Preview -->
+        <div class="bunny-section">
+          <div class="bunny-preview-box">
+            <!-- SVG Bunny Avatar -->
+            <svg viewBox="0 0 300 380" class="bunny-svg" id="bunnySVG">
+              <!-- Body -->
+              <ellipse cx="150" cy="180" rx="70" ry="90" id="bunnyBody" fill="#ffffff" stroke="none" />
+              
+              <!-- Left Ear -->
+              <g id="earLeft">
+                <ellipse cx="100" cy="80" rx="35" ry="85" id="earLeftOuter" fill="#ffffff" stroke="none" />
+                <ellipse cx="100" cy="90" rx="20" ry="65" id="earLeftInner" fill="#ffc0d9" stroke="none" />
+              </g>
+              
+              <!-- Right Ear -->
+              <g id="earRight">
+                <ellipse cx="200" cy="80" rx="35" ry="85" id="earRightOuter" fill="#ffffff" stroke="none" />
+                <ellipse cx="200" cy="90" rx="20" ry="65" id="earRightInner" fill="#ffc0d9" stroke="none" />
+              </g>
+              
+              <!-- Head Circle -->
+              <circle cx="150" cy="140" r="65" id="bunnyHead" fill="#ffffff" stroke="none" />
+              
+              <!-- Eyes -->
+              <g id="eyes">
+                <circle cx="125" cy="120" r="12" id="eyeLeft" fill="#4a4a4a" stroke="none" />
+                <circle cx="175" cy="120" r="12" id="eyeRight" fill="#4a4a4a" stroke="none" />
+                <!-- Eye shine -->
+                <circle cx="128" cy="115" r="4" id="shineLeft" fill="#ffffff" stroke="none" opacity="0.8" />
+                <circle cx="178" cy="115" r="4" id="shineRight" fill="#ffffff" stroke="none" opacity="0.8" />
+              </g>
+              
+              <!-- Nose -->
+              <ellipse cx="150" cy="145" rx="8" ry="10" id="bunnyNose" fill="#ffc0d9" stroke="none" />
+              
+              <!-- Mouth -->
+              <g id="mouth">
+                <path d="M 150 155 Q 140 165 130 162" stroke="#4a4a4a" stroke-width="2" fill="none" stroke-linecap="round" />
+                <path d="M 150 155 Q 160 165 170 162" stroke="#4a4a4a" stroke-width="2" fill="none" stroke-linecap="round" />
+              </g>
+              
+              <!-- Body accent (belly) -->
+              <ellipse cx="150" cy="200" rx="45" ry="60" id="bunnyBelly" fill="#ffffff" opacity="0.9" stroke="none" />
+              
+              <!-- Tail -->
+              <circle cx="150" cy="260" r="25" id="bunnyTail" fill="#ffffff" stroke="none" />
+              
+              <!-- Paws -->
+              <g id="paws">
+                <ellipse cx="110" cy="250" rx="20" ry="30" id="pawLeft" fill="#ffffff" stroke="none" />
+                <ellipse cx="190" cy="250" rx="20" ry="30" id="pawRight" fill="#ffffff" stroke="none" />
+              </g>
+              
+              <!-- Clothing Layer - Shirt -->
+              <g id="clothingShirt" opacity="0" pointer-events="none">
+                <rect x="105" y="170" width="90" height="80" rx="10" id="shirtBody" fill="#ff69b4" stroke="none" />
+                <ellipse cx="135" cy="175" rx="8" ry="12" id="shirtSleeveLeft" fill="#ff69b4" stroke="none" />
+                <ellipse cx="165" cy="175" rx="8" ry="12" id="shirtSleeveRight" fill="#ff69b4" stroke="none" />
+              </g>
+              
+              <!-- Clothing Layer - Hoodie -->
+              <g id="clothingHoodie" opacity="0" pointer-events="none">
+                <path d="M 100 160 Q 100 140 150 130 Q 200 140 200 160 L 200 240 Q 200 250 190 250 L 110 250 Q 100 250 100 240 Z" id="hoodieBody" fill="#9370db" stroke="none" />
+                <circle cx="120" cy="170" r="8" id="hoodieTieLeft" fill="#9370db" stroke="none" />
+                <circle cx="180" cy="170" r="8" id="hoodieTieRight" fill="#9370db" stroke="none" />
+              </g>
+              
+              <!-- Clothing Layer - Dress -->
+              <g id="clothingDress" opacity="0" pointer-events="none">
+                <path d="M 110 180 L 95 280 Q 95 290 105 290 L 195 290 Q 205 290 205 280 L 190 180 Z" id="dressBody" fill="#ff1493" stroke="none" />
+                <path d="M 115 190 L 110 280" stroke="#ff69b4" stroke-width="2" fill="none" />
+                <path d="M 150 190 L 150 280" stroke="#ff69b4" stroke-width="2" fill="none" />
+                <path d="M 185 190 L 190 280" stroke="#ff69b4" stroke-width="2" fill="none" />
+              </g>
+              
+              <!-- Accessories - Glasses -->
+              <g id="accessoriesGlasses" opacity="0" pointer-events="none">
+                <g id="glassFrame">
+                  <rect x="105" y="105" width="25" height="20" rx="5" id="glassLeftFrame" fill="none" stroke="#333333" stroke-width="2" />
+                  <rect x="170" y="105" width="25" height="20" rx="5" id="glassRightFrame" fill="none" stroke="#333333" stroke-width="2" />
+                  <line x1="130" y1="115" x2="170" y2="115" stroke="#333333" stroke-width="2" />
+                </g>
+              </g>
+              
+              <!-- Accessories - Crown -->
+              <g id="accessoriesCrown" opacity="0" pointer-events="none">
+                <path d="M 100 60 L 120 40 L 135 50 L 150 30 L 165 50 L 180 40 L 200 60 L 195 75 L 105 75 Z" id="crownBody" fill="#ffd700" stroke="none" />
+                <circle cx="120" cy="35" r="5" id="crownJewel1" fill="#ff1493" stroke="none" />
+                <circle cx="150" cy="25" r="6" id="crownJewel2" fill="#ff1493" stroke="none" />
+                <circle cx="180" cy="35" r="5" id="crownJewel3" fill="#ff1493" stroke="none" />
+              </g>
+              
+              <!-- Accessories - Headphones -->
+              <g id="accessoriesHeadphones" opacity="0" pointer-events="none">
+                <path d="M 120 85 Q 120 60 150 60 Q 180 60 180 85" id="headphonesArc" fill="none" stroke="#333333" stroke-width="4" stroke-linecap="round" />
+                <circle cx="120" cy="90" r="12" id="headphonesLeft" fill="#333333" stroke="none" />
+                <circle cx="180" cy="90" r="12" id="headphonesRight" fill="#333333" stroke="none" />
+                <circle cx="120" cy="90" r="6" id="headphonesLeftSpeaker" fill="#ff1493" stroke="none" />
+                <circle cx="180" cy="90" r="6" id="headphonesRightSpeaker" fill="#ff1493" stroke="none" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Bunny Name Input -->
+          <div class="bunny-name-input">
+            <input
+              type="text"
+              id="bunnyName"
+              placeholder="Enter bunny name"
+              maxlength="15"
+            />
+            <span class="char-count"><span id="charCount">0</span>/15</span>
+          </div>
+        </div>
+
+        <!-- Customization Options -->
+        <div class="creator-options">
+          <!-- Body Color -->
+          <div class="creator-section">
+            <h3 class="section-title">Body Color</h3>
             <div class="options-grid">
-              <button
-                class="style-option"
-                data-type="jacket"
-                data-src="../images/jacket1.png"
-              >
-                Pink Jacket
-              </button>
-              <button
-                class="style-option"
-                data-type="jacket"
-                data-src="../images/jacket2.png"
-              >
-                Blue Jacket
-              </button>
-              <button class="style-option" data-type="jacket" data-src="">
-                None
-              </button>
+              <button class="color-option active" data-bodycolor="#ffffff" data-innerearscolor="#ffc0d9" title="White"></button>
+              <button class="color-option" data-bodycolor="#fff5f7" data-innerearscolor="#ffb3d9" title="Cream"></button>
+              <button class="color-option" data-bodycolor="#ffe4e1" data-innerearscolor="#ff99b3" title="Blush"></button>
+              <button class="color-option" data-bodycolor="#f0f8ff" data-innerearscolor="#b3d9ff" title="Alice Blue"></button>
+              <button class="color-option" data-bodycolor="#fffacd" data-innerearscolor="#ffeb99" title="Lemon"></button>
             </div>
           </div>
 
-          <div class="custom-section">
-            <h3>Accessories</h3>
-            <div class="options-grid">
-              <button
-                class="style-option"
-                data-type="glasses"
-                data-src="../images/glasses1.png"
-              >
-                Cool Glasses
-              </button>
-              <button class="style-option" data-type="glasses" data-src="">
-                None
-              </button>
+          <!-- Clothing -->
+          <div class="creator-section">
+            <h3 class="section-title">Clothing</h3>
+            <div class="options-grid-buttons">
+              <button class="clothing-btn active" data-clothing="none">None</button>
+              <button class="clothing-btn" data-clothing="shirt">Shirt</button>
+              <button class="clothing-btn" data-clothing="hoodie">Hoodie</button>
+              <button class="clothing-btn" data-clothing="dress">Dress</button>
+            </div>
+          </div>
+
+          <!-- Accessories -->
+          <div class="creator-section">
+            <h3 class="section-title">Accessories</h3>
+            <div class="options-grid-buttons">
+              <button class="accessories-btn active" data-accessories="none">None</button>
+              <button class="accessories-btn" data-accessories="glasses">Glasses</button>
+              <button class="accessories-btn" data-accessories="crown">Crown</button>
+              <button class="accessories-btn" data-accessories="headphones">Headphones</button>
             </div>
           </div>
         </div>
 
-        <button id="finishButton">Save and Finish</button>
+        <!-- Action Buttons -->
+        <div class="creator-actions">
+          <button id="randomButton" class="btn btn-secondary">Randomize</button>
+          <button id="finishButton" class="btn btn-primary">Save and Continue</button>
+        </div>
       </div>
     </div>
 

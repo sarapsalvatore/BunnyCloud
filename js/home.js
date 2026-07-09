@@ -90,6 +90,42 @@ function changeMood(mood) {
                 <div class="s-card"><div class="s-cover c1"></div><h4>Green Garden</h4><p>Ambient • 15 songs</p></div>
             `,
     },
+    dreamy: {
+      bg: "#f3ebff",
+      hero: "linear-gradient(135deg, #ebd5ff 0%, #f8eaff 100%)",
+      quote: '"Let your imagination wander freely."',
+      songs: `
+                <div class="s-card"><div class="s-cover c3"></div><h4>Ethereal Dreams</h4><p>Ambient • 28 songs</p></div>
+                <div class="s-card"><div class="s-cover c1"></div><h4>Cloud Nine</h4><p>Dreamy • 22 songs</p></div>
+            `,
+    },
+    rain: {
+      bg: "#f0f9ff",
+      hero: "linear-gradient(135deg, #bfeaff 0%, #e3f4ff 100%)",
+      quote: '"Find peace in the rhythm of rain."',
+      songs: `
+                <div class="s-card"><div class="s-cover c4"></div><h4>Rainy Day Vibes</h4><p>Lo-fi • 35 songs</p></div>
+                <div class="s-card"><div class="s-cover c1"></div><h4>Soft Rain</h4><p>Ambient • 26 songs</p></div>
+            `,
+    },
+    gaming: {
+      bg: "#f5f0ff",
+      hero: "linear-gradient(135deg, #e0bfff 0%, #f0e0ff 100%)",
+      quote: '"Level up your focus with epic soundtracks."',
+      songs: `
+                <div class="s-card"><div class="s-cover c2"></div><h4>Arcade Dreams</h4><p>Gaming • 45 songs</p></div>
+                <div class="s-card"><div class="s-cover c3"></div><h4>Battle Beats</h4><p>Electronic • 38 songs</p></div>
+            `,
+    },
+    love: {
+      bg: "#fff8fa",
+      hero: "linear-gradient(135deg, #ffc9e3 0%, #ffe3f0 100%)",
+      quote: '"Music for your heart and soul."',
+      songs: `
+                <div class="s-card"><div class="s-cover c2"></div><h4>Heart Strings</h4><p>Romance • 42 songs</p></div>
+                <div class="s-card"><div class="s-cover c4"></div><h4>Love Notes</h4><p>Ballads • 31 songs</p></div>
+            `,
+    },
     sleep: {
       bg: "#1a1b30",
       hero: "linear-gradient(135deg, #252852 0%, #161729 100%)",
