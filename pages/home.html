@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body>
     <div class="app-container">
@@ -23,59 +24,98 @@
               height="24"
             />
           </div>
-          <h2>Bunnycloud</h2>
+          <div class="brand-text">
+            <h2>Bunnycloud</h2>
+            <p>Your music. Your cloud.</p>
+          </div>
         </div>
 
         <div class="sidebar-bunny-card">
           <img
-            id="sidebarBunny"
-            src="../images/bunny-base.svg"
+            id="sidebarBunnyCustom"
+            class="sidebar-bunny-card-replacement"
+            src="../images/logo-bunny.png"
             alt="Môj avatar"
           />
         </div>
 
         <div class="nav-menu">
           <button class="nav-btn active">
-            <span class="nav-icon">🏡</span>
+            <i data-lucide="home"></i>
             Home
           </button>
           <button class="nav-btn">
-            <span class="nav-icon">🎧</span>
-            Listen
+            <i data-lucide="search"></i>
+            Search
           </button>
           <button class="nav-btn">
-            <span class="nav-icon">🧸</span>
-            Bunny Room
-          </button>
-          <button class="nav-btn">
-            <span class="nav-icon">📚</span>
+            <i data-lucide="library"></i>
             Library
+          </button>
+          <button class="nav-btn">
+            <i data-lucide="heart"></i>
+            Favorites
+          </button>
+          <button class="nav-btn">
+            <i data-lucide="music"></i>
+            Playlists
+          </button>
+          <button class="nav-btn">
+            <i data-lucide="smile"></i>
+            Bunny Moods
+          </button>
+          <button class="nav-btn">
+            <i data-lucide="sparkles"></i>
+            Bunny Studio
+          </button>
+          <button class="nav-btn">
+            <i data-lucide="download"></i>
+            Downloads
+          </button>
+          <button class="nav-btn">
+            <i data-lucide="settings"></i>
+            Settings
           </button>
         </div>
 
         <div class="sidebar-user-profile">
-          <div class="user-avatar"></div>
+          <div class="user-avatar">
+            <img src="../images/user-avatar.jpg" alt="Sarka" />
+          </div>
           <div class="user-info">
-            <div class="username" id="userProfileName">Sarka</div>
-            <div class="user-status">Ready to vibe</div>
+            <div class="username-wrapper">
+              <span class="username" id="userProfileName">sarka</span>
+              <i data-lucide="heart" class="heart-mini-icon"></i>
+            </div>
+            <div class="user-status">Bunny Lover</div>
+            <div class="status-bar-container">
+              <div class="status-bar-fill" style="width: 72%"></div>
+              <span class="status-percent">72%</span>
+            </div>
           </div>
         </div>
       </aside>
 
       <main class="main-content">
-        <div class="search-bar-container">
-          <input type="text" placeholder="Search for songs, artists or moods" />
-        </div>
+        <header class="main-header">
+          <div class="search-bar-container">
+            <i data-lucide="search" class="search-icon"></i>
+            <input
+              type="text"
+              placeholder="Search for songs, albums, artists..."
+            />
+          </div>
+        </header>
 
         <section class="hero-banner" id="mainHero">
           <div class="hero-text">
-            <p>Welcome back</p>
-            <h1>Hello, <span id="heroGreetingName">Sarka</span> 👋</h1>
-            <p class="subtext">
-              Your cozy corner is waiting. Pick a mood and let the music follow
-              you.
-            </p>
-            <button class="continue-btn">Continue</button>
+            <p>Good evening,</p>
+            <h1>Sarka <i data-lucide="heart" class="hero-heart"></i></h1>
+            <p class="subtext">Ready to discover something beautiful today?</p>
+            <button class="continue-btn">
+              <i data-lucide="play" class="btn-icon-play"></i> Continue
+              Listening
+            </button>
           </div>
           <div class="hero-img-box">
             <img
@@ -87,30 +127,52 @@
         </section>
 
         <section class="moods-section">
+          <div class="section-title-with-sparkle">
+            <h3>How are you feeling?</h3>
+            <i data-lucide="sparkles" class="title-sparkle"></i>
+          </div>
           <div class="mood-cards-row">
-            <button class="mood-card active" onclick="changeMood('study')">
-              <div class="mood-icon study"></div>
-              <p>Study</p>
-            </button>
             <button class="mood-card" onclick="changeMood('happy')">
-              <div class="mood-icon happy"></div>
+              <div class="mood-icon happy"><i data-lucide="sun"></i></div>
               <p>Happy</p>
             </button>
             <button class="mood-card" onclick="changeMood('calm')">
-              <div class="mood-icon calm"></div>
+              <div class="mood-icon calm"><i data-lucide="leaf"></i></div>
               <p>Calm</p>
             </button>
             <button class="mood-card" onclick="changeMood('dreamy')">
-              <div class="mood-icon dreamy"></div>
+              <div class="mood-icon dreamy">
+                <i data-lucide="cloud-moon"></i>
+              </div>
               <p>Dreamy</p>
             </button>
-            <button class="mood-card" onclick="changeMood('rain')">
-              <div class="mood-icon rain"></div>
+            <button class="mood-card active" onclick="changeMood('rain')">
+              <div class="mood-icon rain"><i data-lucide="cloud-rain"></i></div>
               <p>Rain</p>
             </button>
+            <button class="mood-card" onclick="changeMood('study')">
+              <div class="mood-icon study"><i data-lucide="book-open"></i></div>
+              <p>Study</p>
+            </button>
             <button class="mood-card" onclick="changeMood('gaming')">
-              <div class="mood-icon gaming"></div>
+              <div class="mood-icon gaming">
+                <i data-lucide="gamepad-2"></i>
+              </div>
               <p>Gaming</p>
+            </button>
+            <button class="mood-card" onclick="changeMood('love')">
+              <div class="mood-icon love"><i data-lucide="heart"></i></div>
+              <p>Love</p>
+            </button>
+            <button class="mood-card" onclick="changeMood('sleep')">
+              <div class="mood-icon sleep"><i data-lucide="moon"></i></div>
+              <p>Sleep</p>
+            </button>
+            <button class="mood-card more-card">
+              <div class="mood-icon more">
+                <i data-lucide="more-horizontal"></i>
+              </div>
+              <p>More</p>
             </button>
           </div>
         </section>
@@ -132,24 +194,35 @@
             <div class="recent-list">
               <div class="recent-row">
                 <div class="recent-cover c1"></div>
-                <div>
-                  <h4>Midnight Drift</h4>
-                  <p>Lo-fi • 12 min</p>
+                <div class="recent-info">
+                  <h4>Cloudy Days</h4>
+                  <p>Lo-fi Bunny</p>
                 </div>
+                <i data-lucide="heart" class="row-heart-icon active"></i>
               </div>
               <div class="recent-row">
                 <div class="recent-cover c2"></div>
-                <div>
-                  <h4>Sweet Afternoon</h4>
-                  <p>Chill • 8 min</p>
+                <div class="recent-info">
+                  <h4>Pastel Dreams</h4>
+                  <p>Lo-fi Bunny</p>
                 </div>
+                <i data-lucide="heart" class="row-heart-icon"></i>
               </div>
               <div class="recent-row">
                 <div class="recent-cover c3"></div>
-                <div>
-                  <h4>Clouds & Coffee</h4>
-                  <p>Jazz • 9 min</p>
+                <div class="recent-info">
+                  <h4>Moonlight</h4>
+                  <p>Chillhop</p>
                 </div>
+                <i data-lucide="heart" class="row-heart-icon"></i>
+              </div>
+              <div class="recent-row">
+                <div class="recent-cover c4"></div>
+                <div class="recent-info">
+                  <h4>Starlight</h4>
+                  <p>Lo-fi Bunny</p>
+                </div>
+                <i data-lucide="heart" class="row-heart-icon"></i>
               </div>
             </div>
           </div>
@@ -157,40 +230,55 @@
       </main>
 
       <aside class="right-panel">
-        <h3>Bunny room</h3>
+        <div class="panel-header-row">
+          <h3>Bunny Room</h3>
+          <i data-lucide="more-horizontal" class="more-dots"></i>
+        </div>
         <div class="bunny-room-box">
           <img id="roomBunny" src="../images/bunny-base.svg" alt="Bunny room" />
         </div>
 
         <div class="quote-box">
-          <p id="moodQuote">"Focus on your dreams, track by track."</p>
+          <i data-lucide="quote" class="quote-icon"></i>
+          <p id="moodQuote">Take a break and enjoy your favorite song.</p>
         </div>
 
         <div class="library-header">
-          <h3>Library</h3>
-          <span>View all</span>
+          <h3>Your Library</h3>
+          <span class="new-playlist-btn"><i data-lucide="plus"></i> New</span>
         </div>
         <div class="library-list">
           <div class="lib-row">
-            <div class="lib-icon c1"></div>
-            <div>
-              <h4>Focus Flow</h4>
-              <p>Study mix</p>
+            <div class="lib-icon item-purple"><i data-lucide="heart"></i></div>
+            <div class="lib-info">
+              <h4>Liked Songs</h4>
+              <p>128 songs</p>
             </div>
+            <i data-lucide="more-horizontal" class="row-dots"></i>
           </div>
           <div class="lib-row">
-            <div class="lib-icon c2"></div>
-            <div>
-              <h4>Sunset Loops</h4>
-              <p>Evening chill</p>
+            <div class="lib-icon item-blue"><i data-lucide="music"></i></div>
+            <div class="lib-info">
+              <h4>My Songs</h4>
+              <p>64 songs</p>
             </div>
+            <i data-lucide="more-horizontal" class="row-dots"></i>
           </div>
           <div class="lib-row">
-            <div class="lib-icon c3"></div>
-            <div>
-              <h4>Dreamy Nights</h4>
-              <p>Sleep playlist</p>
+            <div class="lib-icon item-pink"><i data-lucide="layers"></i></div>
+            <div class="lib-info">
+              <h4>Chill Playlist</h4>
+              <p>32 songs</p>
             </div>
+            <i data-lucide="more-horizontal" class="row-dots"></i>
+          </div>
+          <div class="lib-row">
+            <div class="lib-icon item-violet"><i data-lucide="coffee"></i></div>
+            <div class="lib-info">
+              <h4>Study Time</h4>
+              <p>40 songs</p>
+            </div>
+            <i data-lucide="more-horizontal" class="row-dots"></i>
           </div>
         </div>
       </aside>
@@ -198,17 +286,27 @@
       <footer class="bottom-player">
         <div class="player-left">
           <div class="current-cover"></div>
-          <div>
-            <h4>Moonlight Study</h4>
-            <p>Quiet hours</p>
+          <div class="current-track-info">
+            <h4>
+              Rainy Window <i data-lucide="heart" class="track-heart"></i>
+            </h4>
+            <p>Lo-fi Bunny</p>
           </div>
         </div>
 
         <div class="player-center">
           <div class="player-buttons">
-            <button class="p-btn">⏮</button>
-            <button id="mainPlayBtn" class="play-circle">▶</button>
-            <button class="p-btn">⏭</button>
+            <button class="p-control-btn"><i data-lucide="shuffle"></i></button>
+            <button class="p-control-btn">
+              <i data-lucide="skip-back"></i>
+            </button>
+            <button id="mainPlayBtn" class="play-circle">
+              <i data-lucide="pause"></i>
+            </button>
+            <button class="p-control-btn">
+              <i data-lucide="skip-forward"></i>
+            </button>
+            <button class="p-control-btn"><i data-lucide="repeat"></i></button>
           </div>
           <div class="timeline-box">
             <span class="time-text" id="currentTime">1:24</span>
@@ -216,23 +314,37 @@
               <div
                 class="progress-bar-fill"
                 id="playerProgress"
-                style="width: 35%"
-              ></div>
+                style="width: 37%"
+              >
+                <div class="progress-dot"></div>
+              </div>
             </div>
             <span class="time-text">3:45</span>
           </div>
         </div>
 
         <div class="player-right">
+          <i data-lucide="volume-2" class="vol-icon"></i>
+          <div class="volume-bar-bg">
+            <div class="volume-bar-fill" style="width: 70%"></div>
+          </div>
+          <button class="player-action-btn">
+            <i data-lucide="file-text"></i> Lyrics
+          </button>
+          <button class="player-action-btn">
+            <i data-lucide="list-music"></i> Queue
+          </button>
           <div class="mini-bunny-avatar">
             <img src="../images/bunny-base.svg" alt="Mini bunny" />
           </div>
-          <button class="lyrics-btn">Lyrics</button>
-          <button class="queue-btn">Queue</button>
         </div>
       </footer>
     </div>
 
     <script src="../js/home.js"></script>
+    <script>
+      // Spracovanie ikon z registrov do HTML
+      lucide.createIcons();
+    </script>
   </body>
 </html>

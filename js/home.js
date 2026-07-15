@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. SPRÁVNE MENO PODĽA VYTVORENÉHO AVATARA
+  // 1. NAČÍTANIE MENA Z LOCALSTORAGE (Sarka)
   let savedName = "Sarka";
   try {
     const savedUser = JSON.parse(
@@ -8,187 +8,255 @@ document.addEventListener("DOMContentLoaded", () => {
     savedName =
       savedUser.username ||
       localStorage.getItem("bunnycloud_username") ||
-      localStorage.getItem("bunnycloud_meno") ||
-      localStorage.getItem("bunnycloud_bunnyName") ||
       localStorage.getItem("username") ||
       savedName;
   } catch (error) {
     savedName = "Sarka";
   }
 
+  // Zápis mena v malých písmenách do spodného profilu
+  const profileName = document.getElementById("userProfileName");
+  if (profileName) profileName.textContent = savedName.toLowerCase();
+
+  // Priradenie uloženého avatara na miesta králička (VYRADILI SME ODTIETO #sidebarBunny)
   let savedBunny = {};
   try {
     savedBunny = JSON.parse(localStorage.getItem("bunnycloud_bunny") || "{}");
-  } catch (error) {
+  } catch (e) {
     savedBunny = {};
   }
 
-  // Prepíšeme texty v HTML, aby ukazovali reálne zadané meno
-  const heroGreeting = document.getElementById("heroGreetingName");
-  const profileName = document.getElementById("userProfileName");
-
-  if (heroGreeting) heroGreeting.textContent = savedName;
-  if (profileName) profileName.textContent = savedName;
-
-  const avatarImgs = document.querySelectorAll(
-    "#sidebarBunny, #heroBunny, #roomBunny, .mini-bunny-avatar img",
-  );
   const avatarSrc = savedBunny.avatarUrl || "../images/bunny-base.svg";
-  avatarImgs.forEach((img) => {
+
+  // Teraz meníme len tie obrázky, ktoré sa majú dynamicky meniť (vynechali sme sidebar)
+  const bunnyImages = document.querySelectorAll(
+    "#heroBunny, #roomBunny, .mini-bunny-avatar img",
+  );
+  bunnyImages.forEach((img) => {
     if (img) img.src = avatarSrc;
   });
 
-  // Pri štarte nastavíme základnú študijnú náladu
-  changeMood("study");
+  // Inicializácia pozdravu v Hero sekcii
+  updateHeroGreeting();
 
-  // 2. OVLÁDANIE PREHRÁVAČA
+  // Nastavenie počiatočnej nálady (Rain)
+  changeMood("rain");
+
+  // 2. LOGIKA ČASOVAČA PREHRÁVAČA (1:24 -> 3:45)
   const playBtn = document.getElementById("mainPlayBtn");
   const progressFill = document.getElementById("playerProgress");
   const currentTimeText = document.getElementById("currentTime");
 
   let isPlaying = false;
   let timerInterval;
-  let totalSeconds = 84; // Začíname na čase 1:24
+  let currentSeconds = 84;
+  const totalSeconds = 225;
 
   if (playBtn) {
     playBtn.addEventListener("click", () => {
       isPlaying = !isPlaying;
-      if (isPlaying) {
-        playBtn.textContent = "⏸";
-        timerInterval = setInterval(() => {
-          totalSeconds++;
-          let mins = Math.floor(totalSeconds / 60);
-          let secs = totalSeconds % 60;
-          if (secs < 10) secs = "0" + secs;
+      const icon = playBtn.querySelector("i");
 
-          if (currentTimeText) currentTimeText.textContent = `${mins}:${secs}`;
-          if (progressFill) {
-            let percent = (totalSeconds / 225) * 100; // Celkový čas 3:45 má 225 sekúnd
-            progressFill.style.width = `${percent}%`;
+      if (isPlaying) {
+        if (icon) icon.setAttribute("data-lucide", "play");
+        clearInterval(timerInterval);
+      } else {
+        if (icon) icon.setAttribute("data-lucide", "pause");
+        timerInterval = setInterval(() => {
+          if (currentSeconds < totalSeconds) {
+            currentSeconds++;
+            let mins = Math.floor(currentSeconds / 60);
+            let secs = currentSeconds % 60;
+            if (secs < 10) secs = "0" + secs;
+
+            if (currentTimeText)
+              currentTimeText.textContent = `${mins}:${secs}`;
+            if (progressFill) {
+              let percentage = (currentSeconds / totalSeconds) * 100;
+              progressFill.style.width = `${percentage}%`;
+            }
+          } else {
+            clearInterval(timerInterval);
           }
         }, 1000);
-      } else {
-        playBtn.textContent = "▶";
-        clearInterval(timerInterval);
       }
+      lucide.createIcons();
     });
   }
 });
 
-// 3. MENIACE SA POZADIE A PLAYLISTY PODĽA NÁLAD (Presne z nákresu)
+// 3. OBSAH PODĽA NAVOLENEJ NÁLADY
 function changeMood(mood) {
-  const body = document.body;
-  const hero = document.getElementById("mainHero");
-  const quote = document.getElementById("moodQuote");
   const songContainer = document.getElementById("suggestedSongs");
+  const quote = document.getElementById("moodQuote");
 
-  // Reset aktívnych tried na tlačidlách nálad
+  // Reset aktívnej triedy na všetkých mood kartách
   document
     .querySelectorAll(".mood-card")
     .forEach((card) => card.classList.remove("active"));
 
-  const moodConfigs = {
-    study: {
-      bg: "#f0f6ff",
-      hero: "linear-gradient(135deg, #cbdcff 0%, #eef3ff 100%)",
-      quote: '"Focus on your dreams, track by track."',
+  // Aktivácia správneho tlačidla
+  const currentBtn = document.querySelector(
+    `button[onclick="changeMood('${mood}')"]`,
+  );
+  if (currentBtn) currentBtn.classList.add("active");
+
+  // Zoznam pesničiek a citátov pre každú náladu
+  const moodData = {
+    rain: {
+      quote: "Rainy days are perfect for cozy, nostalgic beats. ☔",
       songs: `
-                <div class="s-card"><div class="s-cover c1"></div><h4>Rainy Nights</h4><p>Lo-fi • 32 songs</p></div>
-                <div class="s-card"><div class="s-cover c3"></div><h4>Late Thoughts</h4><p>Chill • 24 songs</p></div>
-                <div class="s-card"><div class="s-cover c2"></div><h4>Moonlight Study</h4><p>Ambient • 18 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Soft Keys</h4><p>Piano • 14 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c1"></div><h4>Rainy Nights</h4><p>Lo-fi • 32 songs</p></div>
+        <div class="s-card"><div class="s-cover c2"></div><h4>Broken Hearts</h4><p>Sad • 28 songs</p></div>
+        <div class="s-card"><div class="s-cover c3"></div><h4>Late Thoughts</h4><p>Chill • 24 songs</p></div>
+        <div class="s-card"><div class="s-cover c4"></div><h4>Soft Piano</h4><p>Instrumental • 30 songs</p></div>
+      `,
     },
     happy: {
-      bg: "#fffbf0",
-      hero: "linear-gradient(135deg, #ffe9b5 0%, #fff7e1 100%)",
-      quote: '"Music sounds sweeter when you are smiling!"',
+      quote: "Keep smiling and let the music power your day! ☀️",
       songs: `
-                <div class="s-card"><div class="s-cover c2"></div><h4>Sunny Beats</h4><p>Happy • 40 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Pastel Energy</h4><p>Pop • 18 songs</p></div>
-                <div class="s-card"><div class="s-cover c1"></div><h4>Bright Days</h4><p>Indie • 26 songs</p></div>
-                <div class="s-card"><div class="s-cover c3"></div><h4>Joy Ride</h4><p>Dance • 22 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c2"></div><h4>Sunny Beats</h4><p>Pop • 42 songs</p></div>
+        <div class="s-card"><div class="s-cover c4"></div><h4>Good Vibe</h4><p>Dance • 18 songs</p></div>
+        <div class="s-card"><div class="s-cover c1"></div><h4>Bright Days</h4><p>Indie • 35 songs</p></div>
+        <div class="s-card"><div class="s-cover c3"></div><h4>Joy Ride</h4><p>Happy • 20 songs</p></div>
+      `,
     },
     calm: {
-      bg: "#f0fbf6",
-      hero: "linear-gradient(135deg, #c6f3db 0%, #ebfaf2 100%)",
-      quote: '"Take a deep breath. Let the frequencies heal you."',
+      quote: "Take a deep breath. Slow down and listen. 🍃",
       songs: `
-                <div class="s-card"><div class="s-cover c3"></div><h4>Soft Piano</h4><p>Instrumental • 30 songs</p></div>
-                <div class="s-card"><div class="s-cover c1"></div><h4>Green Garden</h4><p>Ambient • 15 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Ocean Mist</h4><p>Chill • 20 songs</p></div>
-                <div class="s-card"><div class="s-cover c2"></div><h4>Quiet Hours</h4><p>Focus • 18 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c3"></div><h4>Ocean Mist</h4><p>Ambient • 20 songs</p></div>
+        <div class="s-card"><div class="s-cover c1"></div><h4>Green Garden</h4><p>Relax • 15 songs</p></div>
+        <div class="s-card"><div class="s-cover c4"></div><h4>Soft Breeze</h4><p>Chill • 22 songs</p></div>
+        <div class="s-card"><div class="s-cover c2"></div><h4>Quiet Flow</h4><p>Focus • 30 songs</p></div>
+      `,
     },
     dreamy: {
-      bg: "#f3ebff",
-      hero: "linear-gradient(135deg, #ebd5ff 0%, #f8eaff 100%)",
-      quote: '"Let your imagination wander freely."',
+      quote: "Let your mind wander among the stars tonight. ✨",
       songs: `
-                <div class="s-card"><div class="s-cover c3"></div><h4>Ethereal Dreams</h4><p>Ambient • 28 songs</p></div>
-                <div class="s-card"><div class="s-cover c1"></div><h4>Cloud Nine</h4><p>Dreamy • 22 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Neon Stars</h4><p>Glow • 19 songs</p></div>
-                <div class="s-card"><div class="s-cover c2"></div><h4>Velvet Sky</h4><p>Chillwave • 21 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c4"></div><h4>Ethereal Dreams</h4><p>Dreamy • 25 songs</p></div>
+        <div class="s-card"><div class="s-cover c3"></div><h4>Neon Stars</h4><p>Synth • 19 songs</p></div>
+        <div class="s-card"><div class="s-cover c1"></div><h4>Cloud Nine</h4><p>Ambient • 31 songs</p></div>
+        <div class="s-card"><div class="s-cover c2"></div><h4>Velvet Sky</h4><p>Chillwave • 14 songs</p></div>
+      `,
     },
-    rain: {
-      bg: "#f0f9ff",
-      hero: "linear-gradient(135deg, #bfeaff 0%, #e3f4ff 100%)",
-      quote: '"Find peace in the rhythm of rain."',
+    study: {
+      quote: "Stay focused. You are doing amazing! 📚",
       songs: `
-                <div class="s-card"><div class="s-cover c4"></div><h4>Rainy Day Vibes</h4><p>Lo-fi • 35 songs</p></div>
-                <div class="s-card"><div class="s-cover c1"></div><h4>Soft Rain</h4><p>Ambient • 26 songs</p></div>
-                <div class="s-card"><div class="s-cover c2"></div><h4>Watercolor</h4><p>Chill • 24 songs</p></div>
-                <div class="s-card"><div class="s-cover c3"></div><h4>Cool Drops</h4><p>Relax • 18 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c1"></div><h4>Focus Beats</h4><p>Focus • 50 songs</p></div>
+        <div class="s-card"><div class="s-cover c3"></div><h4>Deep Memory</h4><p>Ambient • 24 songs</p></div>
+        <div class="s-card"><div class="s-cover c2"></div><h4>Smart Coding</h4><p>Electronic • 40 songs</p></div>
+        <div class="s-card"><div class="s-cover c4"></div><h4>Library Space</h4><p>Piano • 18 songs</p></div>
+      `,
     },
     gaming: {
-      bg: "#f5f0ff",
-      hero: "linear-gradient(135deg, #e0bfff 0%, #f0e0ff 100%)",
-      quote: '"Level up your focus with epic soundtracks."',
+      quote: "Level up your focus with these gaming tracks! 🎮",
       songs: `
-                <div class="s-card"><div class="s-cover c2"></div><h4>Arcade Dreams</h4><p>Gaming • 45 songs</p></div>
-                <div class="s-card"><div class="s-cover c3"></div><h4>Battle Beats</h4><p>Electronic • 38 songs</p></div>
-                <div class="s-card"><div class="s-cover c1"></div><h4>Power Up</h4><p>EDM • 30 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Neo Runner</h4><p>Synth • 27 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c2"></div><h4>Arcade Runner</h4><p>Chiptune • 27 songs</p></div>
+        <div class="s-card"><div class="s-cover c3"></div><h4>Cyber Drive</h4><p>Synthwave • 33 songs</p></div>
+        <div class="s-card"><div class="s-cover c1"></div><h4>Power Up</h4><p>EDM • 45 songs</p></div>
+        <div class="s-card"><div class="s-cover c4"></div><h4>Final Boss</h4><p>Epic • 21 songs</p></div>
+      `,
     },
     love: {
-      bg: "#fff8fa",
-      hero: "linear-gradient(135deg, #ffc9e3 0%, #ffe3f0 100%)",
-      quote: '"Music for your heart and soul."',
+      quote: "Love is in the air, and in every single beat. 💕",
       songs: `
-                <div class="s-card"><div class="s-cover c2"></div><h4>Heart Strings</h4><p>Romance • 42 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Love Notes</h4><p>Ballads • 31 songs</p></div>
-                <div class="s-card"><div class="s-cover c1"></div><h4>Moon Kissed</h4><p>R&B • 29 songs</p></div>
-                <div class="s-card"><div class="s-cover c3"></div><h4>Soft Embrace</h4><p>Acoustic • 25 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c4"></div><h4>Heart Strings</h4><p>Acoustic • 30 songs</p></div>
+        <div class="s-card"><div class="s-cover c2"></div><h4>Warm Hugs</h4><p>Chill • 22 songs</p></div>
+        <div class="s-card"><div class="s-cover c1"></div><h4>Sweet Symphony</h4><p>Romantic • 19 songs</p></div>
+        <div class="s-card"><div class="s-cover c3"></div><h4>Midnight Tales</h4><p>R&B • 26 songs</p></div>
+      `,
     },
     sleep: {
-      bg: "#1a1b30",
-      hero: "linear-gradient(135deg, #252852 0%, #161729 100%)",
-      quote: '"Time to drift away into the clouds."',
+      quote: "Close your eyes, relax, and drift away. 🌙",
       songs: `
-                <div class="s-card"><div class="s-cover c1"></div><h4>Deep Sleep</h4><p>Sounds • 50 songs</p></div>
-                <div class="s-card"><div class="s-cover c3"></div><h4>Starry Night</h4><p>Lullaby • 20 songs</p></div>
-                <div class="s-card"><div class="s-cover c2"></div><h4>Midnight Calm</h4><p>Dream • 22 songs</p></div>
-                <div class="s-card"><div class="s-cover c4"></div><h4>Cloud Rest</h4><p>Sleep • 18 songs</p></div>
-            `,
+        <div class="s-card"><div class="s-cover c3"></div><h4>Deep Rest</h4><p>Sleep Sounds • 60 songs</p></div>
+        <div class="s-card"><div class="s-cover c1"></div><h4>Star Lullaby</h4><p>Ambient • 18 songs</p></div>
+        <div class="s-card"><div class="s-cover c2"></div><h4>Night Light</h4><p>Quiet • 25 songs</p></div>
+        <div class="s-card"><div class="s-cover c4"></div><h4>Cloud Bed</h4><p>Relax • 32 songs</p></div>
+      `,
     },
   };
 
-  // Priradíme dáta podľa vybranej nálady (alebo použijeme štúdiovú ako predvolenú)
-  const config = moodConfigs[mood] || moodConfigs["study"];
+  const selected = moodData[mood] || moodData["rain"];
 
-  body.style.background = config.bg;
-  if (hero) hero.style.background = config.hero;
-  if (quote) quote.textContent = config.quote;
-  if (songContainer) songContainer.innerHTML = config.songs;
-
-  // Pridanie aktívnej triedy kliknutému elementu
-  const activeBtn = document.querySelector(
-    `button[onclick="changeMood('${mood}')"]`,
-  );
-  if (activeBtn) activeBtn.classList.add("active");
+  if (songContainer) songContainer.innerHTML = selected.songs;
+  if (quote) quote.textContent = selected.quote;
 }
+
+// 4. Funkcia na nastavenie pozdravu podľa času dňa
+function updateHeroGreeting() {
+  const greetingElement = document.querySelector("#mainHero .hero-text p");
+  if (!greetingElement) return;
+
+  const hours = new Date().getHours();
+  let greetingText = "Good evening,";
+
+  if (hours >= 5 && hours < 12) {
+    greetingText = "Good morning,";
+  } else if (hours >= 12 && hours < 18) {
+    greetingText = "Good afternoon,";
+  } else if (hours >= 18 && hours < 22) {
+    greetingText = "Good evening,";
+  } else {
+    greetingText = "Good night,";
+  }
+
+  greetingElement.textContent = greetingText;
+}
+// Definícia piesní pre sekciu "Made for your mood"
+const suggestedSongs = [
+  {
+    title: "Rainy Nights",
+    category: "Lo-fi",
+    songsCount: "32 songs",
+    coverClass: "c-rainy",
+  },
+  {
+    title: "Broken Hearts",
+    category: "Sad",
+    songsCount: "28 songs",
+    coverClass: "c-broken",
+  },
+  {
+    title: "Late Thoughts",
+    category: "Chill",
+    songsCount: "24 songs",
+    coverClass: "c-late",
+  },
+  {
+    title: "Soft Piano",
+    category: "Instrumental",
+    songsCount: "30 songs",
+    coverClass: "c-soft",
+  },
+];
+
+// Funkcia na vykreslenie kartičiek do HTML
+function renderSuggestedSongs() {
+  const container = document.getElementById("suggestedSongs");
+  if (!container) return;
+
+  // Vyčistíme kontajner pre istotu
+  container.innerHTML = "";
+
+  // Vygenerujeme každú kartičku presne podľa tvojich CSS tried
+  suggestedSongs.forEach((song) => {
+    const card = document.createElement("div");
+    card.className = "s-card"; // Použije tvoje CSS pravidlo pre .s-card
+
+    card.innerHTML = `
+      <div class="s-cover ${song.coverClass}"></div>
+      <div class="s-card-info">
+        <h4>${song.title}</h4>
+        <p>${song.category} • ${song.songsCount}</p>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// Spustenie funkcie po načítaní stránky
+document.addEventListener("DOMContentLoaded", () => {
+  renderSuggestedSongs();
+});
