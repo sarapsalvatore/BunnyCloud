@@ -18,18 +18,12 @@
         <div class="brand">
           <div class="logo-svg">
             <img
-              src="../images/logo.png"
+              id="brandLogoBunny"
+              src="../images/bunny2.png"
               alt="Bunnycloud"
-              width="24"
-              height="24"
             />
           </div>
-          <div class="brand-text">
-            <h2>Bunnycloud</h2>
-            <p>Your music. Your cloud.</p>
-          </div>
         </div>
-
         <div class="sidebar-bunny-card">
           <img
             id="sidebarBunnyCustom"
@@ -40,6 +34,8 @@
         </div>
 
         <div class="nav-menu">
+          <div class="nav-indicator"></div>
+
           <button class="nav-btn active">
             <i data-lucide="home"></i>
             Home
@@ -118,11 +114,7 @@
             </button>
           </div>
           <div class="hero-img-box">
-            <img
-              id="heroBunny"
-              src="../images/bunny-base.svg"
-              alt="Bunny avatar"
-            />
+            <img id="heroBunny" src="../images/bunny3.png" alt="Bunny avatar" />
           </div>
         </section>
 
@@ -168,11 +160,11 @@
               <div class="mood-icon sleep"><i data-lucide="moon"></i></div>
               <p>Sleep</p>
             </button>
-            <button class="mood-card more-card">
-              <div class="mood-icon more">
-                <i data-lucide="more-horizontal"></i>
+            <button class="mood-card" onclick="changeMood('original')">
+              <div class="mood-icon original">
+                <i data-lucide="sparkles"></i>
               </div>
-              <p>More</p>
+              <p>Original</p>
             </button>
           </div>
         </section>
@@ -342,9 +334,78 @@
     </div>
 
     <script src="../js/home.js"></script>
+
     <script>
-      // Spracovanie ikon z registrov do HTML
       lucide.createIcons();
+
+      // --- KONTROLA PRE POHYBLIVÝ RÁMČEK V MENU ---
+      const navMenu = document.querySelector(".nav-menu");
+      const navBtns = document.querySelectorAll(".nav-btn");
+      const indicator = document.querySelector(".nav-indicator");
+
+      function updateIndicator(activeBtn, immediate = false) {
+        if (!activeBtn || !indicator || !navMenu) return;
+
+        const menuRect = navMenu.getBoundingClientRect();
+        const btnRect = activeBtn.getBoundingClientRect();
+        const topPosition = btnRect.top - menuRect.top + navMenu.scrollTop;
+
+        if (immediate) {
+          indicator.style.transition = "none";
+        } else {
+          indicator.style.transition =
+            "transform 0.38s cubic-bezier(0.25, 1, 0.2, 1), height 0.38s cubic-bezier(0.25, 1, 0.2, 1), background-color 0.3s ease";
+        }
+
+        indicator.style.transform = `translateY(${topPosition}px)`;
+        indicator.style.height = `${btnRect.height}px`;
+      }
+
+      // Počiatočné nastavenie na Home pri načítaní
+      const initialActive = document.querySelector(".nav-btn.active");
+      if (initialActive) {
+        updateIndicator(initialActive, true);
+        setTimeout(() => updateIndicator(initialActive), 100);
+      }
+
+      // Zabezpečenie klikania na položky menu
+      navBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          navBtns.forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+          updateIndicator(this);
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        const currentActive = document.querySelector(".nav-btn.active");
+        if (currentActive) updateIndicator(currentActive, true);
+      });
+
+      // --- BEZPEČNÁ FUNKCIA PRE MOODY (ZABRÁNI CRASHU) ---
+      // Ak už máš funkciu changeMood v home.js, táto ju bezpečne prepojí a nezablokuje ju
+      const originalChangeMood = window.changeMood;
+      window.changeMood = function (mood) {
+        // 1. Vizuálne prepnutie aktívnej karty nálady na ploche
+        const moodCards = document.querySelectorAll(".mood-card");
+        moodCards.forEach((card) => card.classList.remove("active"));
+
+        // Nájdeme kartu, na ktorú sa kliklo a dáme jej active triedu
+        const clickedCard = document.querySelector(
+          `.mood-card[onclick*="${mood}"]`,
+        );
+        if (clickedCard) clickedCard.classList.add("active");
+
+        // 2. Ak si klikla na 'original', vrátime farbu rámčeka na oranžovú
+        if (mood === "original") {
+          if (indicator) indicator.style.backgroundColor = "#f0a32f";
+        }
+
+        // 3. Spustíme tvoju pôvodnú logiku nálad z home.js (zmena pozadia, pesničiek), ak existuje
+        if (typeof originalChangeMood === "function") {
+          originalChangeMood(mood);
+        }
+      };
     </script>
   </body>
 </html>

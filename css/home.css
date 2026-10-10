@@ -56,7 +56,7 @@ body {
   background: #c3aaff;
 }
 
-/* ĽAVÝ PANEL (SIDEBAR) - OPRAVENÝ */
+/* ĽAVÝ PANEL (SIDEBAR) */
 .sidebar {
   grid-row: 1;
   grid-column: 1;
@@ -70,82 +70,77 @@ body {
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  margin-bottom: 10px; /* Jemný odstup od loga */
-}
-
-.brand-text h2 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #926eff;
-}
-
-.brand-text p {
-  font-size: 11px;
-  color: #a496c0;
-}
-
-/* KARTA PRE VEĽKÉHO ZAJAČIKA BEZ BIELEHO POZADIA */
-.sidebar-bunny-card {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  background: transparent !important; /* Odstránené biele pozadie */
-  border: none !important; /* Odstránený rámček */
-  margin: 10px 0 !important; /* Správne zarovnanie výšky */
+  background: transparent !important;
+  border: none !important;
+  margin: 30px 0 !important;
 }
 
-/* Samotný zväčšený zajačik */
+/* Samotný poriadne zväčšený zajačik */
 .sidebar-bunny-card-replacement {
   width: 100% !important;
   max-width: 155px !important;
   height: auto !important;
   display: block;
   margin: 0 auto !important;
-
-  /* TENTO RIADOK HO ZVÄČŠÍ O 30% */
-  transform: scale(1.3) !important;
-
-  /* Ak by zväčšením zasahoval príliš nízko, posunieme ho jemne hore */
   transform-origin: center center;
+  transform: scale(1.7) translateX(0px) translateY(0px) !important;
 }
 
+/* Kontajner menu, v ktorom sa indikátor hýbe */
 .nav-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex-shrink: 0;
-  margin-top: 10px;
+  position: relative;
 }
 
+/* Samotné tlačidlá menu */
 .nav-btn {
+  position: relative;
+  z-index: 2; /* Text a ikony budú NAD lietajúcim rámčekom */
+  background: transparent !important;
+  border: none;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: none;
+  padding: 14px 20px;
   cursor: pointer;
-  background: transparent;
-  color: #7d7299;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: left;
-  transition: all 0.2s ease;
+  border-radius: 22px !important; /* Presne zaoblené rohy ako na tvojom screenshote */
+  color: #7d7a9b;
+  transition: color 0.2s ease;
 }
 
-.nav-btn:hover,
+/* Keď je položka aktívna, text zbelie */
 .nav-btn.active {
-  color: #ffffff;
-  background: linear-gradient(135deg, #b091ff, #c3aaff);
+  color: #ffffff !important;
 }
 
-/* PROFIL SARKA - POSUNUTÝ PEKNE NA SVOJE MIESTO */
+/* Dokonale "smoof" lietajúci rámček */
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: 22px !important; /* Presná kópia zaoblenia rohov z detailu */
+  z-index: 1; /* Zasunie sa pod text tlačidla */
+  pointer-events: none; /* Ignoruje kliknutia, aby neblokoval tlačidlá */
+
+  /* Naša ikonická BunnyCloud oranžová ako základ */
+  background-color: #f0a32f;
+
+  /* Hardvérovo akcelerovaný super hladký pohyb a dojazd */
+  transition:
+    transform 0.38s cubic-bezier(0.25, 1, 0.2, 1),
+    height 0.38s cubic-bezier(0.25, 1, 0.2, 1),
+    background-color 0.3s ease;
+
+  /* Nastavenie počiatočného bodu transformácie */
+  transform-origin: top center;
+}
+
+/* PROFIL */
 .sidebar-user-profile {
   display: flex;
   align-items: center;
@@ -154,7 +149,7 @@ body {
   border-radius: 16px;
   background: #ffffff;
   border: 1px solid #ebdfff;
-  margin-top: auto; /* Toto ho automaticky drží na spodku bočného panela */
+  margin-top: auto;
   flex-shrink: 0;
 }
 
@@ -234,6 +229,7 @@ body {
   color: #7d7299;
 }
 
+/* UPRAVENÉ TLAČIDLO PRE DOKONALÉ VYCENTROVANIE TEXTU */
 .continue-btn {
   align-self: flex-start;
   margin-top: 10px;
@@ -246,10 +242,21 @@ body {
   font-weight: 500;
   font-size: 13px;
   transition: background 0.2s;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
 }
 
 .continue-btn:hover {
   background: #7c54f7;
+}
+
+/* POSUNUTIE IBA SAMOTNÉHO TEXTU O 2px HORE V RÁMČEKU */
+.continue-btn span {
+  display: inline-block !important;
+  transform: translateY(-2px) !important;
 }
 
 .hero-img-box {
@@ -282,21 +289,22 @@ body {
   gap: 8px;
 }
 
+/* FIXNÉ A ROVNAKÉ VEĽKOSTI PRE VŠETKY MOOD KARTY */
 .mood-card {
-  flex: 1;
-  height: 70px;
-  border-radius: 14px;
-  background: #f7f5fc;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  cursor: pointer;
-  transition:
-    transform 0.2s,
-    background-color 0.2s;
+  flex: 1 !important;
+  min-width: 50px !important;
+  max-width: 85px !important;
+  height: 75px !important;
+  padding: 8px 4px !important;
+  border-radius: 18px !important;
+  border: 2px solid transparent !important;
+  background: #f7f5fc !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
 .mood-card:hover {
@@ -304,46 +312,104 @@ body {
   background: #f1ecf9;
 }
 
+.mood-card.active {
+  background: #ffffff !important;
+  border: 2px solid #5b3ce0 !important;
+  transform: none !important;
+  box-shadow: 0 8px 20px rgba(145, 120, 220, 0.08) !important;
+}
+
+.mood-card.active:hover {
+  transform: none !important;
+}
+
+.mood-card p,
+.mood-card span {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #7d7299 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+.mood-card.active p,
+.mood-card.active span {
+  color: #3b2d5a !important;
+}
+
 .mood-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  display: grid !important;
+  place-items: center !important;
+  flex-shrink: 0 !important;
   font-size: 14px;
 }
 
-.mood-card span {
-  font-size: 11px;
-  font-weight: 500;
-  color: #7d7299;
+/* --- ☀ HAPPY THEME --- */
+body.theme-happy .nav-indicator {
+  background: #fff4d4 !important;
+}
+body.theme-happy .nav-btn:hover {
+  color: #ffb800 !important;
 }
 
-.mood-icon.happy {
-  background: #fff4d4;
-  color: #ffb800;
+/* --- 🍃 CALM THEME --- */
+body.theme-calm .nav-indicator {
+  background: #e0f9ec !important;
 }
-.mood-icon.calm {
-  background: #e0f9ec;
-  color: #2ecc71;
-}
-.mood-icon.dreamy {
-  background: #f0e6ff;
-  color: #a178ff;
-}
-.mood-icon.rain {
-  background: #e1f5fe;
-  color: #0288d1;
-}
-.mood-icon.study {
-  background: #e8f0fe;
-  color: #3a7afe;
-}
-.mood-icon.gaming {
-  background: #f3e5f5;
-  color: #9c27b0;
+body.theme-calm .nav-btn:hover {
+  color: #2ecc71 !important;
 }
 
+/* --- 💜 DREAMY THEME --- */
+body.theme-dreamy .nav-indicator {
+  background: #f0e6ff !important;
+}
+body.theme-dreamy .nav-btn:hover {
+  color: #a178ff !important;
+}
+
+/* --- 🌧 RAIN THEME --- */
+body.theme-rain .nav-indicator {
+  background: #e1f5fe !important;
+}
+body.theme-rain .nav-btn:hover {
+  color: #0288d1 !important;
+}
+
+/* --- 📖 STUDY THEME --- */
+body.theme-study .nav-indicator {
+  background: #e8f0fe !important;
+}
+body.theme-study .nav-btn:hover {
+  color: #3a7afe !important;
+}
+
+/* --- 🎮 GAMING THEME --- */
+body.theme-gaming .nav-indicator {
+  background: #f3e5f5 !important;
+}
+body.theme-gaming .nav-btn:hover {
+  color: #9c27b0 !important;
+}
+
+/* --- ❤️ LOVE THEME --- */
+body.theme-love .nav-indicator {
+  background: #ffe4ec !important;
+}
+body.theme-love .nav-btn:hover {
+  color: #ff4d6d !important;
+}
+
+/* --- 🌙 SLEEP THEME --- */
+body.theme-sleep .nav-indicator {
+  background: #1c1833 !important;
+}
+body.theme-sleep .nav-btn:hover {
+  color: #8a2be2 !important;
+}
 /* HUDOBNÉ SEKCIE */
 .music-sections-grid {
   display: grid;
@@ -382,12 +448,12 @@ body {
   font-weight: 600;
 }
 
-/* MADE FOR YOUR MOOD */
+/* GRID PRE KARTY PIESNÍ */
 .song-cards-container {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
-  gap: 16px !important;
-  width: 100%;
+  gap: 12px !important;
+  width: 100% !important;
 }
 
 .song-card,
@@ -395,55 +461,19 @@ body {
   display: flex !important;
   flex-direction: column !important;
   width: 100% !important;
+  min-width: 0 !important;
 }
 
 .song-cover,
 .s-cover {
   width: 100% !important;
-  aspect-ratio: 0.72 !important;
+  aspect-ratio: 0.8 !important;
   border-radius: 20px !important;
   margin-bottom: 10px !important;
   background-size: cover !important;
   background-position: center !important;
   box-shadow: 0 10px 20px rgba(145, 120, 220, 0.12) !important;
-}
-
-.c-rainy,
-.rainy,
-.cover-rainy {
-  background: linear-gradient(135deg, #5b3ce0, #ff8da1) !important;
-}
-.c-broken,
-.broken,
-.cover-broken {
-  background: linear-gradient(135deg, #ff4081, #6a1b9a) !important;
-}
-.c-late,
-.late,
-.cover-late {
-  background: linear-gradient(135deg, #4f46e5, #1e1b4b) !important;
-}
-.c-soft,
-.soft,
-.cover-soft {
-  background: linear-gradient(135deg, #00f2fe, #4facfe) !important;
-}
-
-.song-card:nth-child(1) .song-cover,
-.s-card:nth-child(1) .s-cover {
-  background: linear-gradient(135deg, #5b3ce0, #ff8da1);
-}
-.song-card:nth-child(2) .song-cover,
-.s-card:nth-child(2) .s-cover {
-  background: linear-gradient(135deg, #ff4081, #6a1b9a);
-}
-.song-card:nth-child(3) .song-cover,
-.s-card:nth-child(3) .s-cover {
-  background: linear-gradient(135deg, #4f46e5, #1e1b4b);
-}
-.song-card:nth-child(4) .song-cover,
-.s-card:nth-child(4) .s-cover {
-  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  flex-shrink: 0 !important;
 }
 
 .song-card-info h4,
@@ -452,12 +482,35 @@ body {
   font-weight: 600 !important;
   color: #3b2d5a !important;
   margin-bottom: 3px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .song-card-info p,
 .s-card-info p {
   font-size: 11px !important;
   color: #8c7fa9 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.c-rainy,
+.cover-rainy {
+  background: linear-gradient(135deg, #5b3ce0, #ff8da1) !important;
+}
+.c-broken,
+.cover-broken {
+  background: linear-gradient(135deg, #ff4081, #6a1b9a) !important;
+}
+.c-late,
+.cover-late {
+  background: linear-gradient(135deg, #4f46e5, #1e1b4b) !important;
+}
+.c-soft,
+.cover-soft {
+  background: linear-gradient(135deg, #00f2fe, #4facfe) !important;
 }
 
 /* RECENTLY PLAYED */
@@ -804,4 +857,426 @@ body {
   object-fit: contain;
   margin-left: 6px;
   flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 55px;
+  padding-left: 0 !important;
+}
+
+#brandLogoBunny {
+  width: 80px !important;
+  height: auto !important;
+  object-fit: contain;
+  background: transparent !important;
+  transform: scale(3.1) !important;
+  transform-origin: center center;
+}
+
+/* ODSTRÁNENIE HORIZONTÁLNEHO SCROLLU */
+html,
+body,
+.app-container,
+.main-content,
+.sidebar,
+.right-panel {
+  overflow-x: hidden !important;
+}
+
+.mood-cards-row {
+  display: flex !important;
+  gap: 6px !important;
+  width: 100% !important;
+  flex-wrap: nowrap !important;
+}
+
+/* ==========================================================================
+   VYRAZNÉ FAREBNÉ THEMY PRE VNÚTRO APP-CONTAINERA
+   ========================================================================== */
+
+/* Plynulé animácie prechodu farieb */
+.app-container,
+.sidebar,
+.main-content,
+.right-panel,
+.bottom-player,
+.hero-banner,
+.nav-btn.active,
+.sidebar-user-profile,
+.quote-box,
+.search-bar-container input {
+  transition: all 0.4s ease-in-out !important;
+}
+
+/* --- ☀ HAPPY THEME --- */
+body.theme-happy {
+  background: #fffdef0 !important;
+}
+body.theme-happy .app-container {
+  background: #fffdf0 !important;
+  box-shadow: 0 15px 45px rgba(255, 184, 0, 0.15) !important;
+}
+body.theme-happy .sidebar,
+body.theme-happy .right-panel {
+  background: #fff6cc !important;
+  border-color: #ffd13b !important;
+}
+body.theme-happy .main-content {
+  background: #fffff5 !important;
+}
+body.theme-happy .hero-banner {
+  background: linear-gradient(135deg, #ffe066, #f5b041) !important;
+}
+body.theme-happy .hero-banner h1,
+body.theme-happy .hero-banner p,
+body.theme-happy .hero-banner .subtext {
+  color: #3e2d00 !important;
+}
+body.theme-happy .nav-btn.active {
+  background: linear-gradient(135deg, #f5b041, #f39c12) !important;
+  color: #fff !important;
+}
+body.theme-happy .bottom-player {
+  background: linear-gradient(135deg, #fffdf0, #fff6cc) !important;
+  border-top: 2px solid #ffd13b !important;
+}
+body.theme-happy .quote-box {
+  background: #fff2b2 !important;
+  border-left: 4px solid #f39c12 !important;
+}
+body.theme-happy .continue-btn {
+  background: #f39c12 !important;
+}
+body.theme-happy .continue-btn:hover {
+  background: #d68910 !important;
+}
+
+/* --- 🍃 CALM THEME --- */
+body.theme-calm {
+  background: #f0fbf5 !important;
+}
+body.theme-calm .app-container {
+  background: #edf8f2 !important;
+  box-shadow: 0 15px 45px rgba(46, 204, 113, 0.12) !important;
+}
+body.theme-calm .sidebar,
+body.theme-calm .right-panel {
+  background: #d1f2de !important;
+  border-color: #52be80 !important;
+}
+body.theme-calm .main-content {
+  background: #f4fbf7 !important;
+}
+body.theme-calm .hero-banner {
+  background: linear-gradient(135deg, #a3e4d7, #52be80) !important;
+}
+body.theme-calm .hero-banner h1,
+body.theme-calm .hero-banner p,
+body.theme-calm .hero-banner .subtext {
+  color: #0e3a20 !important;
+}
+body.theme-calm .nav-btn.active {
+  background: linear-gradient(135deg, #27ae60, #1e8449) !important;
+  color: #fff !important;
+}
+body.theme-calm .bottom-player {
+  background: linear-gradient(135deg, #edf8f2, #d1f2de) !important;
+  border-top: 2px solid #52be80 !important;
+}
+body.theme-calm .quote-box {
+  background: #bbf2d1 !important;
+  border-left: 4px solid #27ae60 !important;
+}
+body.theme-calm .continue-btn {
+  background: #27ae60 !important;
+}
+body.theme-calm .continue-btn:hover {
+  background: #1e8449 !important;
+}
+
+/* --- 💜 DREAMY THEME --- */
+body.theme-dreamy {
+  background: #f6f0ff !important;
+}
+body.theme-dreamy .app-container {
+  background: #faf5ff !important;
+  box-shadow: 0 15px 45px rgba(161, 120, 255, 0.15) !important;
+}
+body.theme-dreamy .sidebar,
+body.theme-dreamy .right-panel {
+  background: #f1e3ff !important;
+  border-color: #bb8fec !important;
+}
+body.theme-dreamy .main-content {
+  background: #fdfaff !important;
+}
+body.theme-dreamy .hero-banner {
+  background: linear-gradient(135deg, #d3b5e5, #bb8fec) !important;
+}
+body.theme-dreamy .nav-btn.active {
+  background: linear-gradient(135deg, #af7ac5, #8e44ad) !important;
+}
+body.theme-dreamy .bottom-player {
+  background: linear-gradient(135deg, #faf5ff, #f1e3ff) !important;
+  border-top: 2px solid #bb8fec !important;
+}
+body.theme-dreamy .quote-box {
+  background: #ebd3ff !important;
+  border-left: 4px solid #8e44ad !important;
+}
+body.theme-dreamy .continue-btn {
+  background: #8e44ad !important;
+}
+body.theme-dreamy .continue-btn:hover {
+  background: #71338c !important;
+}
+
+/* --- 🌧 RAIN THEME --- */
+body.theme-rain {
+  background: #e8eff5 !important;
+}
+body.theme-rain .app-container {
+  background: #eef2f7 !important;
+  box-shadow: 0 15px 45px rgba(70, 130, 180, 0.12) !important;
+}
+body.theme-rain .sidebar,
+body.theme-rain .right-panel {
+  background: #cfdae6 !important;
+  border-color: #7fa4c1 !important;
+}
+body.theme-rain .main-content {
+  background: #f5f8fa !important;
+}
+body.theme-rain .hero-banner {
+  background: linear-gradient(135deg, #a9c5df, #668cb0) !important;
+}
+body.theme-rain .hero-banner h1,
+body.theme-rain .hero-banner p,
+body.theme-rain .hero-banner .subtext {
+  color: #1a2f42 !important;
+}
+body.theme-rain .nav-btn.active {
+  background: linear-gradient(135deg, #4682b4, #2c5980) !important;
+}
+body.theme-rain .bottom-player {
+  background: linear-gradient(135deg, #eef2f7, #cfdae6) !important;
+  border-top: 2px solid #7fa4c1 !important;
+}
+body.theme-rain .quote-box {
+  background: #bed1e3 !important;
+  border-left: 4px solid #4682b4 !important;
+}
+body.theme-rain .continue-btn {
+  background: #4682b4 !important;
+}
+body.theme-rain .continue-btn:hover {
+  background: #2c5980 !important;
+}
+
+/* --- 📖 STUDY THEME --- */
+body.theme-study {
+  background: #fbf8f3 !important;
+}
+body.theme-study .app-container {
+  background: #fcf8f2 !important;
+  box-shadow: 0 15px 45px rgba(184, 134, 11, 0.12) !important;
+}
+body.theme-study .sidebar,
+body.theme-study .right-panel {
+  background: #f0e2cc !important;
+  border-color: #caaa80 !important;
+}
+body.theme-study .main-content {
+  background: #fdfbf7 !important;
+}
+body.theme-study .hero-banner {
+  background: linear-gradient(135deg, #e5c396, #caaa80) !important;
+}
+body.theme-study .hero-banner h1,
+body.theme-study .hero-banner p,
+body.theme-study .hero-banner .subtext {
+  color: #432b13 !important;
+}
+body.theme-study .nav-btn.active {
+  background: linear-gradient(135deg, #a0522d, #8b4513) !important;
+  color: #fff !important;
+}
+body.theme-study .bottom-player {
+  background: linear-gradient(135deg, #fcf8f2, #f0e2cc) !important;
+  border-top: 2px solid #caaa80 !important;
+}
+body.theme-study .quote-box {
+  background: #e8d7be !important;
+  border-left: 4px solid #8b4513 !important;
+}
+body.theme-study .continue-btn {
+  background: #8b4513 !important;
+}
+body.theme-study .continue-btn:hover {
+  background: #6e340e !important;
+}
+
+/* --- 🎮 GAMING THEME --- */
+body.theme-gaming {
+  background: #f3e9f9 !important;
+}
+body.theme-gaming .app-container {
+  background: #fef7ff !important;
+  box-shadow: 0 15px 45px rgba(212, 77, 255, 0.2) !important;
+}
+body.theme-gaming .sidebar,
+body.theme-gaming .right-panel {
+  background: #fae1ff !important;
+  border-color: #ec62ff !important;
+}
+body.theme-gaming .main-content {
+  background: #fffcfc !important;
+}
+body.theme-gaming .hero-banner {
+  background: linear-gradient(135deg, #f5a9ff, #d44dff) !important;
+  box-shadow: 0 0 15px rgba(212, 77, 255, 0.4);
+}
+body.theme-gaming .nav-btn.active {
+  background: linear-gradient(135deg, #d44dff, #8600b3) !important;
+}
+body.theme-gaming .bottom-player {
+  background: linear-gradient(135deg, #fef7ff, #fae1ff) !important;
+  border-top: 2px solid #ec62ff !important;
+}
+body.theme-gaming .quote-box {
+  background: #f7c0ff !important;
+  border-left: 4px solid #d44dff !important;
+}
+body.theme-gaming .continue-btn {
+  background: #d44dff !important;
+}
+body.theme-gaming .continue-btn:hover {
+  background: #8600b3 !important;
+}
+
+/* --- ❤️ LOVE THEME --- */
+body.theme-love {
+  background: #fff0f3 !important;
+}
+body.theme-love .app-container {
+  background: #fff3f5 !important;
+  box-shadow: 0 15px 45px rgba(255, 77, 109, 0.15) !important;
+}
+body.theme-love .sidebar,
+body.theme-love .right-panel {
+  background: #ffd6df !important;
+  border-color: #ff6b8b !important;
+}
+body.theme-love .main-content {
+  background: #ffffb !important;
+}
+body.theme-love .hero-banner {
+  background: linear-gradient(135deg, #ff9ebb, #ff5c8a) !important;
+}
+body.theme-love .nav-btn.active {
+  background: linear-gradient(135deg, #ff4071, #d61c4e) !important;
+}
+body.theme-love .bottom-player {
+  background: linear-gradient(135deg, #fff3f5, #ffd6df) !important;
+  border-top: 2px solid #ff6b8b !important;
+}
+body.theme-love .quote-box {
+  background: #ffbcca !important;
+  border-left: 4px solid #ff4071 !important;
+}
+body.theme-love .continue-btn {
+  background: #ff4071 !important;
+}
+body.theme-love .continue-btn:hover {
+  background: #d61c4e !important;
+}
+
+/* --- 🌙 SLEEP THEME --- */
+body.theme-sleep {
+  background: #080610 !important;
+}
+body.theme-sleep .app-container {
+  background: #0f0c1b !important;
+  color: #e0dcf5 !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6) !important;
+}
+body.theme-sleep .sidebar,
+body.theme-sleep .right-panel {
+  background: #17142b !important;
+  border-color: #3b3561 !important;
+}
+body.theme-sleep .main-content {
+  background: #110e1e !important;
+}
+body.theme-sleep .hero-banner {
+  background: linear-gradient(135deg, #241e3f, #3b3561) !important;
+  color: #e0dcf5 !important;
+  border: 1px solid #4a3f7a !important;
+}
+body.theme-sleep .hero-banner h1,
+body.theme-sleep .hero-banner p,
+body.theme-sleep .hero-banner .subtext {
+  color: #ffffff !important;
+}
+body.theme-sleep .nav-btn {
+  color: #a49fc6 !important;
+}
+body.theme-sleep .nav-btn.active {
+  background: linear-gradient(135deg, #4d3f94, #281e59) !important;
+  color: #ffffff !important;
+}
+body.theme-sleep .bottom-player {
+  background: linear-gradient(135deg, #0f0c1b, #17142b) !important;
+  border-top: 2px solid #3b3561 !important;
+  color: #ffffff !important;
+}
+body.theme-sleep .quote-box {
+  background: #1e1a38 !important;
+  border-left: 4px solid #4d3f94 !important;
+  color: #d1cbe5 !important;
+}
+body.theme-sleep h3,
+body.theme-sleep h4,
+body.theme-sleep .user-status,
+body.theme-sleep .user-info .username {
+  color: #ffffff !important;
+}
+body.theme-sleep .search-bar-container input {
+  background: #1c1833 !important;
+  color: #ffffff !important;
+  border-color: #3b3561 !important;
+}
+body.theme-sleep .continue-btn {
+  background: #4d3f94 !important;
+}
+body.theme-sleep .continue-btn:hover {
+  background: #352a6c !important;
+}
+body.theme-sleep .song-card-info h4,
+body.theme-sleep .s-card-info h4,
+body.theme-sleep .recent-info h4 {
+  color: #ffffff !important;
+}
+body.theme-sleep .song-card-info p,
+body.theme-sleep .s-card-info p,
+body.theme-sleep .recent-info p {
+  color: #a49fc6 !important;
+}
+body.theme-sleep .lib-row,
+body.theme-sleep .bunny-room-box {
+  background: #1c1833 !important;
+  border-color: #3b3561 !important;
+}
+
+#heroBunny {
+  transform: scale(2) translate(10px, 25px);
+  transform-origin: bottom right;
+  position: relative;
+  z-index: 5;
+  height: auto;
 }
